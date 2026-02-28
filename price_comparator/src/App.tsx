@@ -1,44 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+// Modules
+import LocationInput from './modules/LocationInput.tsx'
+import StoreSelect from './modules/StoreSelect.tsx'
+import Share from './modules/Share.tsx'
 
+function App() {
   return (
     <>
-      <div className="Top">
-        <div className="Location">
-          <div className="LocationStringInput">
+      <div className="Home">
+        <div className="Top">
+          <div className="Location">
+            <div className="LocationStringInput">
+              <LocationInput />
+            </div>
+            <div className="StoreSelect">
+              <StoreSelect />
+            </div>
+          </div>
+          <div className="Share">
+            <Share />
+          </div>
+        </div>
+        <div className="Middle">
+          <div className="ShoppingList">
 
           </div>
-          <div className="StoreSelect">
+          <div className="RescipeList">
+
+          </div>
+          <div className="PricesList">
 
           </div>
         </div>
-        <div className="Share">
+        <div className="Bottom">
+          <div className="Chat">
+            <div className="ChatInput">
 
-        </div>
-      </div>
-      <div className="Middle">
-        <div className="ShoppingList">
+            </div>
+            <div className="ChatSend">
 
-        </div>
-        <div className="RescipeList">
-
-        </div>
-        <div className="PricesList">
-
-        </div>
-      </div>
-      <div className="Bottom">
-        <div className="Chat">
-          <div className="ChatInput">
-
-          </div>
-          <div className="ChatSend">
-
+            </div>
           </div>
         </div>
       </div>

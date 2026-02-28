@@ -37,20 +37,19 @@ function App() {
           </div>
           <div className="Share">
 
-            <button onClick={() => setShowResults(true)}>
-              Test Results (sample.json)
-            </button>
-
           </div>
         </div>
         <div className="Middle">
           <div className="ShoppingList">
-            <div className="RescipeList">
 
-            </div>
-            <div className="PricesList">
+          </div>
+          <div className="RescipeList">
 
-            </div>
+          </div>
+          <div className="PricesList">
+            <button onClick={() => setShowResults(true)}>
+              Test Results (sample.json)
+            </button>
           </div>
         </div>
         <div className="Bottom">

@@ -1,12 +1,12 @@
 import './App.css'
 
 import Location from './modules/Location'
+import Chat from './modules/Chat'
 import { useState } from 'react'
 import ResultsPage from './ResultsPage'
 import sampleData from './sample.json'
 
 function App() {
-
   const [showResults, setShowResults] = useState(false)
 
   if (showResults) {
@@ -45,12 +45,7 @@ function App() {
         </div>
         <div className="Bottom">
           <div className="Chat">
-            <div className="ChatInput">
-
-            </div>
-            <div className="ChatSend">
-
-            </div>
+            <Chat />
           </div>
         </div>
       </div>

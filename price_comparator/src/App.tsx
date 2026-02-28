@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { GeminiComponent } from './GeminiTest'
 import './App.css'
 
+// Modules
 import Location from './modules/Location'
 import Chat from './modules/Chat'
-import { useState } from 'react'
+
+
 import ResultsPage from './ResultsPage'
 import sampleData from './sample.json'
 

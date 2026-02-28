@@ -50,7 +50,9 @@ function normalizeQuantity(unit: string | null, quantity: number | null): Normal
   if (u === "ml" || u === "milliliter" || u === "milliliters") return { kind: "volume", amount: quantity };
   if (u === "l" || u === "liter" || u === "liters") return { kind: "volume", amount: quantity * 1000 };
 
-  if (u === "each" || u === "ea" || u === "count" || u === "ct") return { kind: "count", amount: quantity };
+  if (u === "each" || u === "ea" || u === "count" || u === "ct" || u === "pcs" || u === "pc") {
+    return { kind: "count", amount: quantity };
+  }
 
   return null;
 }
@@ -105,6 +107,14 @@ export default function ResultsPage({
     [data.stores]
   );
 
+  // Sort stores by total price (lowest → highest)
+  const sortedStores = useMemo(() => {
+    return [...data.stores]
+      .map((store) => ({ store, total: computeStoreTotal(store) }))
+      .sort((a, b) => a.total - b.total)
+      .map((x) => x.store);
+  }, [data.stores]);
+
   const handleBack = () => {
     if (onBack) return onBack();
     window.history.back();
@@ -140,7 +150,7 @@ export default function ResultsPage({
 
       <main className="rp__content">
         <div className="rp__stores">
-          {data.stores.map((store, sIdx) => {
+          {sortedStores.map((store, sIdx) => {
             const storeKey = normalizeKey(store.name);
             const total = computeStoreTotal(store);
 
@@ -154,8 +164,8 @@ export default function ResultsPage({
                 <div className="rp__table">
                   <div className="rp__row rp__row--head">
                     <div>Item</div>
-                    <div className="rp__right">Qty</div>
-                    <div className="rp__right">Price</div>
+                    <div className="rp__cell rp__cell--qty rp__cell--head">Qty</div>
+                    <div className="rp__cell rp__cell--price rp__cell--head">Price</div>
                   </div>
 
                   {store.items.map((item, iIdx) => {
@@ -173,7 +183,7 @@ export default function ResultsPage({
                       cheapest != null &&
                       cheapest.storeKey === storeKey &&
                       cheapest.kind === up.kind &&
-                      Math.abs(up.unitPrice - cheapest.unitPrice) < 1e-12;
+                      Math.abs(up.unitPrice - cheapest.unitPrice) < 1e-6; // less strict
 
                     return (
                       <div
@@ -185,12 +195,14 @@ export default function ResultsPage({
                         ].join(" ")}
                       >
                         <div className="rp__item">{item.ingredient}</div>
-                        <div className="rp__right">
+
+                        <div className="rp__cell rp__cell--qty">
                           {item.quantity == null || item.unit_of_measure == null
                             ? "—"
                             : `${item.quantity} ${item.unit_of_measure}`}
                         </div>
-                        <div className="rp__right">
+
+                        <div className="rp__cell rp__cell--price">
                           {item.price == null ? "—" : money(item.price)}
                         </div>
                       </div>
@@ -202,9 +214,7 @@ export default function ResultsPage({
                   <span className="rp__chip rp__chip--cheapest">
                     Cheapest (normalized)
                   </span>
-                  <span className="rp__chip rp__chip--missing">
-                    Missing
-                  </span>
+                  <span className="rp__chip rp__chip--missing">Missing</span>
                 </div>
               </section>
             );

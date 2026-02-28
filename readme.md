@@ -1,2 +1,2 @@
 .env contents:
-API_KEY="{your api key}"
+GEMINI_API_KEY="{your api key}"

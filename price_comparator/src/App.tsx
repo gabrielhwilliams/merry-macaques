@@ -1,7 +1,6 @@
 import './App.css'
 
-import LocationInput from './modules/LocationInput'
-import StoreSelect from './modules/StoreSelect'
+import Location from './modules/Location'
 import { useState } from 'react'
 import ResultsPage from './ResultsPage'
 import sampleData from './sample.json'
@@ -25,15 +24,7 @@ function App() {
       <div className="Home">
         <div className="Top">
           <div className="Location">
-            <div className="LocationStringInput">
-              <LocationInput />
-            </div>
-            <div className="StoreSelect">
-              <StoreSelect />
-            </div>
-          </div>
-          <div className="StoreSelect">
-
+            <Location />
           </div>
           <div className="Share">
 

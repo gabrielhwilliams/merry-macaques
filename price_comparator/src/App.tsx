@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { GeminiComponent } from './GeminiTest'
 import './App.css'
 
 import Location from './modules/Location'
@@ -21,6 +23,7 @@ function App() {
 
   return (
     <>
+      <GeminiComponent />
       <div className="Home">
         <div className="Top">
           <div className="Location">

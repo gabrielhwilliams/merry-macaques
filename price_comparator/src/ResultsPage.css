@@ -1,33 +1,27 @@
-/* Page */
 .rp {
   min-height: 100vh;
   background: #ffffff;
   color: #111827;
 }
 
-/* Top bar */
 .rp__topbar {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 12px;
   align-items: center;
-
   padding: 12px 14px;
 }
 
 .rp__title {
   text-align: center;
   font-weight: 800;
-  letter-spacing: 0.2px;
 }
 
-/* Buttons */
 .rp__btn {
   border: 1px solid #e5e7eb;
   background: #111827;
@@ -35,7 +29,7 @@
   padding: 8px 12px;
   border-radius: 12px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .rp__btn--ghost {
@@ -43,22 +37,14 @@
   color: #111827;
 }
 
-.rp__btn:active {
-  transform: translateY(1px);
-}
-
-/* Content */
 .rp__content {
   padding: 14px;
 }
 
-/* Stores layout:
-   - mobile: stacked (one per row)
-   - desktop: multi-column grid */
 .rp__stores {
   display: grid;
-  gap: 14px;
   grid-template-columns: 1fr;
+  gap: 14px;
 }
 
 @media (min-width: 900px) {
@@ -67,7 +53,6 @@
   }
 }
 
-/* Store card */
 .rp__storeCard {
   border: 1px solid #e5e7eb;
   border-radius: 16px;
@@ -75,7 +60,6 @@
   padding: 12px;
 }
 
-/* Store header */
 .rp__storeHeader {
   display: flex;
   justify-content: space-between;
@@ -87,15 +71,14 @@
 
 .rp__storeName {
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .rp__storeTotal {
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
-/* Table */
 .rp__table {
   display: grid;
   gap: 6px;
@@ -103,10 +86,9 @@
 
 .rp__row {
   display: grid;
-  grid-template-columns: 1fr 140px 90px;
+  grid-template-columns: 1fr 170px 90px;
   gap: 10px;
   align-items: center;
-
   padding: 8px 10px;
   border-radius: 12px;
   border: 1px solid #f3f4f6;
@@ -115,30 +97,28 @@
 .rp__row--head {
   border: none;
   padding: 0 2px 8px 2px;
-  font-weight: 800;
+  font-weight: 900;
   opacity: 0.7;
 }
 
 .rp__item {
-  font-weight: 600;
+  font-weight: 650;
 }
 
 .rp__right {
   text-align: right;
 }
 
-/* Missing + cheapest styles */
 .rp__row--missing {
   opacity: 0.55;
   border-style: dashed;
 }
 
 .rp__row--cheapest {
-  background: #f0fdf4;         /* light green */
-  border-color: #16a34a;       /* green outline */
+  background: #f0fdf4;
+  border-color: #16a34a;
 }
 
-/* Legend */
 .rp__legend {
   display: flex;
   gap: 8px;
@@ -149,11 +129,10 @@
 .rp__chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid #e5e7eb;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 12px;
 }
 

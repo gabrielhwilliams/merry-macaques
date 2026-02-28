@@ -3,15 +3,15 @@
         {
         "name": "Costco",
         "items": [
-            { "ingredient": "chicken", "quantity": "2 pounds", "price": 12.99 },
-            { "ingredient": "rice", "quantity": "24 ounces", "price": 5.49 }
+            { "ingredient": "chicken", "unit_of_measure": "pounds", "quantity": 2, "price": 12.99 },
+            { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 24, "price": 5.49 }
             ]   
         },
         {
         "name": "Wegmans",
         "items": [
-            { "ingredient": "chicken", "quantity": "2 pounds", "price": 14.29 },
-            { "ingredient": "rice", "quantity": "12 ounces", "price": 4.99 }
+            { "ingredient": "chicken", "unit_of_measure": "pounds", "quantity": 2, "price": 14.29 },
+            { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 12, "price": 4.99 }
             ]
         }
     ]

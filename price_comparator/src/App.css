@@ -36,23 +36,10 @@
   height: 100px
 }
 
-.Location {
+.LocationContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-.LocationStringInput {
-  width: 50vw;
-  min-width: 600px;
-  max-width: 1000px;
-}
-
-.Share {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: left;
 }
 
 
@@ -74,34 +61,23 @@
   border: 1px black solid;
   border-radius: 5px;
   height: 100%;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 30vw;
 }
 
 .ShoppingList {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 30vw;
 }
 
 .RescipeList {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 30vw;
   margin: 0 3vw;
 }
 
 .PricesList {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 30vw;
 }
 
 

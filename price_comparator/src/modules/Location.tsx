@@ -11,6 +11,8 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
+import '../modulesCSS/Location.css'
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -47,8 +49,8 @@ export default function Location() {
   };
 
   return (
-    <div>
-      <div>
+    <div className='Location'>
+      <div className='addressTextField'>
         <Box
           component="form"
           sx={{ '& > :not(style)': { my: 1, width: '100%' } }}
@@ -59,16 +61,16 @@ export default function Location() {
         </Box>
       </div>
 
-      <div>
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+      <div className='storeSelect'>
+        <FormControl sx={{ my: 1, width: '100%' }}>
+          <InputLabel id="demo-multiple-checkbox-label">Select Nearby Stores</InputLabel>
           <Select
             labelId="demo-multiple-checkbox-label"
             id="demo-multiple-checkbox"
             multiple
             value={personName}
             onChange={handleChange}
-            input={<OutlinedInput label="Tag" />}
+            input={<OutlinedInput label="Select Nearby Stores" />}
             renderValue={(selected) => selected.join(', ')}
             MenuProps={MenuProps}
           >

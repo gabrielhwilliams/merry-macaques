@@ -126,3 +126,29 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.HomeFab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 50;
+
+  display: flex;
+  gap: 10px;
+}
+
+.HomeFabBtn {
+  border: 1px solid #e5e7eb;
+  background: #111827;
+  color: #ffffff;
+
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.HomeFabBtn--ghost {
+  background: #ffffff;
+  color: #111827;
+}

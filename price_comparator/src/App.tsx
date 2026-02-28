@@ -28,7 +28,7 @@ function App() {
       <GeminiComponent />
       <div className="Home">
         <div className="Top">
-          <div className="Location">
+          <div className="LocationContainer">
             <Location />
           </div>
           <div className="Share">

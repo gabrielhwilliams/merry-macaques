@@ -4,6 +4,7 @@ import './App.css'
 
 // Modules
 import Location from './modules/Location'
+import ShoppingList from './modules/ShoppingList'
 import Chat from './modules/Chat'
 
 
@@ -37,7 +38,7 @@ function App() {
         </div>
         <div className="Middle">
           <div className="ShoppingList">
-
+            <ShoppingList />
           </div>
           <div className="RescipeList">
 

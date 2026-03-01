@@ -33,6 +33,64 @@ import {
 
 import { useShopping } from '../context/ShoppingContext';
 
+const dialogPaperSx = {
+  backgroundColor: 'var(--color-surface)',
+  color: 'var(--color-text)',
+  border: '1px solid var(--color-border)',
+  boxShadow: '0 10px 24px var(--color-shadow)',
+};
+
+const dialogTitleSx = {
+  color: 'var(--color-text)',
+  borderBottom: '1px solid var(--color-border)',
+};
+
+const dialogContentTextSx = {
+  color: 'var(--color-text-muted)',
+};
+
+const dialogTextFieldSx = {
+  '& .MuiInputBase-root': {
+    color: 'var(--color-text)',
+    backgroundColor: 'var(--color-surface-muted)',
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'var(--color-border)',
+  },
+  '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'var(--color-border-strong)',
+  },
+  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'var(--color-primary)',
+  },
+  '& .MuiInputLabel-root': {
+    color: 'var(--color-text-muted)',
+  },
+  '& .MuiInputLabel-root.Mui-focused': {
+    color: 'var(--color-primary)',
+  },
+};
+
+const dialogActionsSx = {
+  borderTop: '1px solid var(--color-border)',
+  px: 3,
+  py: 2,
+};
+
+const dialogCancelButtonSx = {
+  color: 'var(--color-text-muted)',
+};
+
+const dialogPrimaryButtonSx = {
+  border: '1px solid var(--color-primary)',
+  backgroundColor: 'var(--color-primary)',
+  color: 'var(--color-button-text)',
+  '&:hover': {
+    borderColor: 'var(--color-primary-hover)',
+    backgroundColor: 'var(--color-primary-hover)',
+  },
+};
+
 const columns: GridColDef[] = [
   { field: 'name', headerName: 'Name', width: 180 },
   {    field: 'quantity',    headerName: 'Quantity',    width: 120,  },
@@ -80,11 +138,12 @@ function EditAction(props: Pick<GridRowParams, 'row'>) {
         PaperProps={{
           component: 'form',
           onSubmit: handleSave,
+          sx: dialogPaperSx,
         }}
       >
-        <DialogTitle>Edit Ingredient</DialogTitle>
+        <DialogTitle sx={dialogTitleSx}>Edit Ingredient</DialogTitle>
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-          <DialogContentText>
+          <DialogContentText sx={dialogContentTextSx}>
             Make changes to the ingredient information.
           </DialogContentText>
           <TextField
@@ -97,6 +156,7 @@ function EditAction(props: Pick<GridRowParams, 'row'>) {
             fullWidth
             value={name}
             onChange={(event) => setName(event.target.value)}
+            sx={dialogTextFieldSx}
           />
           <TextField
             autoFocus
@@ -108,6 +168,7 @@ function EditAction(props: Pick<GridRowParams, 'row'>) {
             fullWidth
             value={quantity}
             onChange={(event) => setQuantity(Number(event.target.value))}
+            sx={dialogTextFieldSx}
           />
           <TextField
             autoFocus
@@ -119,11 +180,12 @@ function EditAction(props: Pick<GridRowParams, 'row'>) {
             fullWidth
             value={unit_of_measure}
             onChange={(event) => setUnitOfMeasure(event.target.value)}
+            sx={dialogTextFieldSx}
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Save changes</Button>
+        <DialogActions sx={dialogActionsSx}>
+          <Button onClick={handleClose} sx={dialogCancelButtonSx}>Cancel</Button>
+          <Button type="submit" sx={dialogPrimaryButtonSx}>Save changes</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
@@ -180,11 +242,12 @@ function AddAction() {
         PaperProps={{
           component: 'form',
           onSubmit: handleSave,
+          sx: dialogPaperSx,
         }}
       >
-        <DialogTitle>Add Ingredient</DialogTitle>
+        <DialogTitle sx={dialogTitleSx}>Add Ingredient</DialogTitle>
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-          <DialogContentText>
+          <DialogContentText sx={dialogContentTextSx}>
             Add an ingredient to your shopping list.
           </DialogContentText>
           <TextField
@@ -197,6 +260,7 @@ function AddAction() {
             fullWidth
             value={name}
             onChange={(event) => setName(event.target.value)}
+            sx={dialogTextFieldSx}
           />
           <TextField
             required
@@ -207,6 +271,7 @@ function AddAction() {
             fullWidth
             value={quantity}
             onChange={(event) => setQuantity(Number(event.target.value))}
+            sx={dialogTextFieldSx}
           />
           <TextField
             required
@@ -217,11 +282,12 @@ function AddAction() {
             fullWidth
             value={unit_of_measure}
             onChange={(event) => setUnitOfMeasure(event.target.value)}
+            sx={dialogTextFieldSx}
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Add Ingredient</Button>
+        <DialogActions sx={dialogActionsSx}>
+          <Button onClick={handleClose} sx={dialogCancelButtonSx}>Cancel</Button>
+          <Button type="submit" sx={dialogPrimaryButtonSx}>Add Ingredient</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

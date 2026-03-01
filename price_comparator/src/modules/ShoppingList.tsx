@@ -1,7 +1,10 @@
 import * as React from 'react';
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
 import {
   DataGridPro,
   useGridApiContext,
+  useGridApiRef,
 } from '@mui/x-data-grid-pro';
 import type{
   GridRenderCellParams,
@@ -9,6 +12,7 @@ import type{
   GridColDef,
   GridRowParams,
   GridRowsProp,
+  GridApiPro,
 } from '@mui/x-data-grid-pro';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -151,10 +155,11 @@ function AddAction() {
   const [name, setName] = React.useState("");
   const [quantity, setQuantity] = React.useState(0);
   const [unit_of_measure, setUnitOfMeasure] = React.useState("");
-  const apiRef = useGridApiContext();
 
-  const handleEdit = (event: React.MouseEvent) => {
-    event.stopPropagation();
+  const handleOpen = () => {
+    setName("");
+    setQuantity(0);
+    setUnitOfMeasure("");
     setEditing(true);
   };
 
@@ -164,12 +169,25 @@ function AddAction() {
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    apiRef.current.updateRows([{ id: randomId(), name, quantity, unit_of_measure }]);
+    apiRef.current?.updateRows([{ id: randomId(), name, quantity, unit_of_measure }]);
     handleClose();
   };
 
   return (
     <React.Fragment>
+      <Fab
+        color="primary"
+        aria-label="add"
+        onClick={handleOpen}
+        sx={{
+          position: 'absolute',
+          bottom: 16,
+          right: 16,
+          zIndex: 1,
+        }}
+      >
+        <AddIcon />
+      </Fab>
 
       <Dialog
         open={editing}
@@ -196,7 +214,6 @@ function AddAction() {
             onChange={(event) => setName(event.target.value)}
           />
           <TextField
-            autoFocus
             required
             margin="dense"
             id="quantity"
@@ -207,7 +224,6 @@ function AddAction() {
             onChange={(event) => setQuantity(Number(event.target.value))}
           />
           <TextField
-            autoFocus
             required
             margin="dense"
             id="unit_of_measure"
@@ -276,17 +292,21 @@ const listViewColDef: GridListViewColDef = {
 };
 
 export default function ListViewEdit() {
+  const apiRef = useGridApiRef();
+
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
         maxWidth: 360,
         height: 400,
+        position: 'relative',
       }}
     >
         <DataGridPro
+            apiRef={apiRef}
             rows={rows}
             columns={columns}
             rowHeight={64}
@@ -295,6 +315,7 @@ export default function ListViewEdit() {
             hideFooter={true}
             sx={{ backgroundColor: 'background.paper' }}
         />
-    </div>
+        <AddAction apiRef={apiRef} />
+    </Box>
   );
 }

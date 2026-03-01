@@ -300,8 +300,7 @@ export default function ListViewEdit() {
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        maxWidth: 360,
-        height: 400,
+        height: '100%',
         position: 'relative',
       }}
     >

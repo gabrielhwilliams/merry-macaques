@@ -1,7 +1,5 @@
-import * as React from 'react';
 import {
   DataGridPro,
-  useGridApiContext,
 } from '@mui/x-data-grid-pro';
 import type{
   GridRenderCellParams,
@@ -13,21 +11,17 @@ import type{
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import Login from '@mui/icons-material/Login';
 import IconButton from '@mui/material/IconButton';
 import {
   randomId,
 } from '@mui/x-data-grid-generator';
-
-import addIngredientsFromRecipe from './ShoppingList'
 
 var rows: GridRowsProp = [
   {
     id: randomId(),
     name: "Dijon Chicken",
     description: "Chicken breasts coated in a creamy Dijon mustard sauce, served with roasted broccoli.",
-    ingredientsDescription: [
-      "Chicken breasts - 2 lbs \n Broccoli - 3 crowns \n Dijon Mustard - 1 cup \n Seasonings - to taste"
-    ],
     ingredients: [
       {
         id: randomId(),
@@ -68,10 +62,10 @@ function AddIngredients(props: Pick<GridRowParams, 'row'>) {
 
   return (
     <IconButton
-      aria-label="Add Ingredients"
-      onClick={() => addIngredientsFromRecipe(row.ingredients)}
+      aria-label="Add Ingredients to Shopping List"
+      // onClick={() => addIngredientsFromRecipe(row.ingredients)}
     >
-      Add to Shopping List
+      <Login sx={{ width: 32, height: 32, backgroundColor: row.avatar, transform: 'scaleX(-1)' }} />
     </IconButton>
   );
 }
@@ -86,19 +80,29 @@ function ListViewCell(props: GridRenderCellParams) {
         alignItems: 'center',
         height: '100%',
         gap: 2,
+        padding: '5px 0',
       }}
     >
-      <Avatar sx={{ width: 32, height: 32, backgroundColor: row.avatar }} />
+      <Stack direction="column" sx={{ gap: 0.5 }}>
+        <Avatar sx={{ width: 32, height: 32, backgroundColor: row.avatar}} />
+        <AddIngredients {...props} />
+      </Stack>
       <Stack sx={{ flexGrow: 1 }}>
         <Typography variant="body2" fontWeight={500}>
           {row.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {row.quantity} {row.unit_of_measure}
+        <Typography variant="body2" color="text.secondary" sx={{ textWrap: "wrap" }}>
+          {row.description}
         </Typography>
-      </Stack>
-      <Stack direction="row" sx={{ gap: 0.5 }}>
-        <AddIngredients {...props} />
+        <Typography variant="body2" color="text.secondary" sx={{ textWrap: "wrap" }}>
+          {Array.isArray(row.ingredients)
+            ? row.ingredients.map((item: any) => (
+                <span key={item.id} style={{ display: 'block', paddingLeft: 20 }}>
+                  • {item.name} - {item.quantity} {item.unit_of_measure}
+                </span>
+              ))
+            : row.ingredientsDescription}
+        </Typography>
       </Stack>
     </Stack>
   );
@@ -116,14 +120,13 @@ export default function ListViewEdit() {
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        maxWidth: 360,
-        height: 400,
+        height: '100%',
       }}
     >
         <DataGridPro
             rows={rows}
             columns={columns}
-            rowHeight={64}
+            getRowHeight={() => 'auto'}
             listView
             listViewColumn={listViewColDef}
             hideFooter={true}

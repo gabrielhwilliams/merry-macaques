@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import './App.css'
 
 // Modules
@@ -31,8 +31,17 @@ function App() {
     const storedTheme = localStorage.getItem('themeMode')
     return storedTheme === 'dark' ? 'dark' : 'light'
   })
+  
+  const { rows } = useShopping();
 
-  const { rows } = useShopping()
+  // Remove MUI watermark whenever component updates or comparison data changes
+  useEffect(() => {
+    getRidOfWatermark()
+  }, [])
+
+  useEffect(() => {
+    getRidOfWatermark()
+  }, [comparisonData])
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', themeMode)
@@ -122,6 +131,17 @@ function App() {
       />
     )
   }
+
+  const getRidOfWatermark = () => {
+    var parentdocsRaw = document.getElementsByClassName("MuiDataGrid-main");
+
+    Array.from(parentdocsRaw).forEach((parentdoc) => {
+        const watermark = Array.from(parentdoc.children).find((div) => (div as HTMLElement).innerText === "MUI X Missing license key");
+        if (watermark) {
+        (watermark as HTMLElement).remove();
+        }
+    });
+  };
 
   return (
     <>

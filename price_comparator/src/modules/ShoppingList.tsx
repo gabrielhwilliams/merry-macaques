@@ -279,6 +279,8 @@ const listViewColDef: GridListViewColDef = {
   renderCell: (params) => <ListViewCell {...params} />,
 };
 
+
+
 export default function ListViewEdit() {
   const apiRef = useGridApiRef();
   const { rows } = useShopping();

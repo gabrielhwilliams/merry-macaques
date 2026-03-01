@@ -28,14 +28,13 @@ const MenuProps = {
 };
 
 const places = [
-  'Walmart', 
-  'Target', 
-  'Costco', 
-  'Kroger', 
-  'Safeway', 
-  'Whole Foods', 
-  'Aldi', 
-  'Trader Joe\'s'
+  'Wegmans - 650 Hylan Dr', 
+  'ALDI - 615 Jefferson Rd', 
+  'Walmart - 1200 Marketplace Dr', 
+  'Target - 2325 Marketplace Dr', 
+  'Tops - 1215 Jefferson Rd', 
+  'BJ\'s - 400 Jay Scutti Blvd', 
+  'Costco - 335 Westfall Rd', 
 ];
 
 export default function Location() {

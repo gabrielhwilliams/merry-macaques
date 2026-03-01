@@ -121,19 +121,7 @@ export default function PriceComparisonPanel({
         }}
       >
         <Stack direction="row" sx={{ my: 0, width: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <span
-            style={{
-              width: 26,
-              height: 26,
-              borderRadius: '50%',
-              backgroundColor: 'var(--color-gemini-badge)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <img src="/gemini-star.png" alt="Gemini" loading="lazy" height="16" width="16" />
-          </span>
+          <img src="/gemini-star.png" alt="Gemini" loading="lazy" height="20" width="20" />
           <span style={{ width: 10 }} />
           <Typography variant="h6" fontWeight={500} sx={{ color: 'var(--color-button-text)' }}>
             {isGenerating ? 'Generating...' : 'Generate Price Comparison'}

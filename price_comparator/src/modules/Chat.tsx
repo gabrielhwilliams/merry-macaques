@@ -17,7 +17,7 @@ type ChatProps = {
 export default function Chat({ themeMode = 'light' }: ChatProps) {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
-  const geminiBadgeColor = themeMode === 'dark' ? '#000000' : '#000000';
+  const geminiStarSrc = themeMode === 'dark' ? '/gemini-star.png' : '/gemini-star.png';
 
   const promptFieldSx = {
     width: '100%',
@@ -75,19 +75,7 @@ export default function Chat({ themeMode = 'light' }: ChatProps) {
               Ask
             </Typography>
             <span style={{ width: 16 }} />
-            <span
-              style={{
-                width: 34,
-                height: 34,
-                borderRadius: '50%',
-                backgroundColor: geminiBadgeColor,
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <img src="/gemini-star.png" alt="Gemini star" loading="lazy" height="20" width="20" />
-            </span>
+            <img src={geminiStarSrc} alt="Gemini star" loading="lazy" height="20" width="20" />
             <span style={{ width: 10 }} />
             <Typography variant="h4" fontWeight={500}>
               Gemini

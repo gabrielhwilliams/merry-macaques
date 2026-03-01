@@ -76,7 +76,7 @@ export default function Chat({ themeMode = 'light' }: ChatProps) {
             </Typography>
             <span style={{ width: 20 }} /> {/* Spacer */}
             <img
-              src={localStorage.getItem('themeMode') === 'dark' ? "/gemini-logo-white.png" : "/gemini-logo-black.png"}
+              src={geminiLogoSrc}
               alt="Gemini"
               loading="lazy"
               height= "72px"

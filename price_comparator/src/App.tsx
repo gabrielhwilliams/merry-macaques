@@ -22,6 +22,19 @@ type ShoppingRow = {
   unit_of_measure?: string
 }
 
+type SampleItem = {
+  ingredient?: string
+  ingredientId?: string
+  unit_of_measure?: string | null
+  quantity?: number | null
+  price?: number | null
+}
+
+type SampleStore = {
+  name: string
+  items: SampleItem[]
+}
+
 function App() {
   const [showResults, setShowResults] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
@@ -62,13 +75,25 @@ function App() {
   }, [rows])
 
   const previewStores = useMemo<PriceStore[]>(() => {
-    if (comparisonData?.stores && comparisonData.stores.length > 0) {
-      return comparisonData.stores as unknown as PriceStore[]
-    }
-
-    const fallbackData = sampleData as unknown as { stores?: PriceStore[] }
-    return fallbackData.stores ?? []
+    if (!comparisonData?.stores) return []
+    return comparisonData.stores as unknown as PriceStore[]
   }, [comparisonData])
+
+  const fallbackResultsData = useMemo<Stores>(() => {
+    const rawStores = (sampleData as { stores?: SampleStore[] }).stores ?? []
+
+    return {
+      stores: rawStores.map((store) => ({
+        name: store.name,
+        items: (store.items ?? []).map((item) => ({
+          ingredientId: String(item.ingredientId ?? item.ingredient ?? '').trim(),
+          unit_of_measure: String(item.unit_of_measure ?? ''),
+          quantity: Number(item.quantity ?? 0),
+          price: item.price == null ? null : Number(item.price)
+        }))
+      }))
+    } as Stores
+  }, [])
 
   const handleGenerate = async () => {
     if (ingredientPayload.length === 0) {
@@ -96,18 +121,13 @@ function App() {
   }
 
   const handleMore = () => {
-    if (!comparisonData?.stores) {
-      alert('Generate a price comparison first.')
-      return
-    }
-
     setShowResults(true)
   }
 
-  if (showResults && comparisonData) {
+  if (showResults) {
     return (
       <ResultsPage
-        data={comparisonData}
+        data={comparisonData ?? fallbackResultsData}
         onBack={() => setShowResults(false)}
         githubUrl="https://github.com/<your-user-or-org>/<your-repo>"
       />
@@ -131,7 +151,7 @@ function App() {
             onGenerate={handleGenerate}
             onMore={handleMore}
             isGenerating={isGenerating}
-            disableMore={!comparisonData?.stores}
+            disableMore={false}
           />
 
           <div className="RecipeList">

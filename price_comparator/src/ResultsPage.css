@@ -1,20 +1,47 @@
+/* ---------- Global Safety ---------- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ---------- Page Wrapper ---------- */
+
 .rp {
-  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+
   background: #ffffff;
   color: #111827;
 }
+
+/* ---------- Top Bar ---------- */
 
 .rp__topbar {
   position: sticky;
   top: 0;
   z-index: 20;
+
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
+
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 12px;
   align-items: center;
-  padding: 12px 14px;
+
+  padding:
+    calc(12px + env(safe-area-inset-top))
+    clamp(12px, 3vw, 22px)
+    12px;
 }
 
 .rp__title {
@@ -37,11 +64,20 @@
   color: #111827;
 }
 
+/* ---------- Content ---------- */
+
 .rp__content {
-  padding: 14px;
+  width: 100%;
+  padding:
+    14px
+    clamp(12px, 3vw, 24px)
+    calc(14px + env(safe-area-inset-bottom));
 }
 
+/* ---------- Store Grid ---------- */
+
 .rp__stores {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr;
   gap: 14px;
@@ -53,31 +89,47 @@
   }
 }
 
+/* ---------- Store Card ---------- */
+
 .rp__storeCard {
+  width: 100%;
+  min-width: 0;
+
   border: 1px solid #e5e7eb;
   border-radius: 16px;
   background: #ffffff;
-  padding: 12px;
+
+  padding: 14px;
 }
+
+/* ---------- Store Header ---------- */
 
 .rp__storeHeader {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+
   padding-bottom: 10px;
   border-bottom: 1px solid #f3f4f6;
   margin-bottom: 10px;
+
+  gap: 10px;
 }
 
 .rp__storeName {
   font-size: 18px;
   font-weight: 900;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .rp__storeTotal {
   font-size: 16px;
   font-weight: 900;
+  white-space: nowrap;
 }
+
+/* ---------- Table ---------- */
 
 .rp__table {
   display: grid;
@@ -86,12 +138,22 @@
 
 .rp__row {
   display: grid;
-  grid-template-columns: 1fr 170px 90px;
+  grid-template-columns: minmax(0, 1fr) 120px 80px;
   gap: 10px;
+
   align-items: center;
+
   padding: 8px 10px;
   border-radius: 12px;
   border: 1px solid #f3f4f6;
+
+  min-width: 0;
+}
+
+@media (max-width: 700px) {
+  .rp__row {
+    grid-template-columns: minmax(0, 1fr) 100px 70px;
+  }
 }
 
 .rp__row--head {
@@ -103,10 +165,20 @@
 
 .rp__item {
   font-weight: 650;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
-.rp__right {
+/* Explicit cells (prevents nth-child bugs) */
+.rp__cell {
   text-align: right;
+  min-width: 0;
+}
+
+.rp__cell--head {
+  font-weight: 900;
+  opacity: 0.7;
 }
 
 .rp__row--missing {
@@ -118,6 +190,8 @@
   background: #f0fdf4;
   border-color: #16a34a;
 }
+
+/* ---------- Legend ---------- */
 
 .rp__legend {
   display: flex;
@@ -144,4 +218,39 @@
 .rp__chip--missing {
   opacity: 0.7;
   border-style: dashed;
+}
+
+/* ---------- Mobile Layout ---------- */
+
+@media (max-width: 520px) {
+  .rp__storeCard {
+    border-radius: 14px;
+    padding: 12px;
+  }
+
+  .rp__row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "item item"
+      "qty price";
+    gap: 6px 10px;
+  }
+
+  .rp__item {
+    grid-area: item;
+  }
+
+  .rp__cell--qty {
+    grid-area: qty;
+    text-align: left;
+  }
+
+  .rp__cell--price {
+    grid-area: price;
+    text-align: right;
+  }
+
+  .rp__row--head {
+    display: none;
+  }
 }

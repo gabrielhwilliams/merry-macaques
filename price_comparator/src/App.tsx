@@ -6,6 +6,8 @@ import Location from './modules/Location'
 import ShoppingList from './modules/ShoppingList'
 import Chat from './modules/Chat'
 import RecipeList from './modules/RecipeList'
+import TopBarSection from './modules/TopBarSection'
+import PriceComparisonPanel, { type PriceStore } from './modules/PriceComparisonPanel'
 
 import ResultsPage from './ResultsPage'
 import sampleData from './sample.json'
@@ -13,10 +15,16 @@ import { comparePrices } from './GeminiUtility'
 import type { Ingredient } from './schemas/ingredients.type'
 import type { Stores } from './schemas/stores.type'
 import { useShopping } from './context/ShoppingContext'
-import { Stack, Typography } from '@mui/material'
+
+type ShoppingRow = {
+  name?: string
+  quantity?: number
+  unit_of_measure?: string
+}
 
 function App() {
   const [showResults, setShowResults] = useState(false)
+  const [isGenerating, setIsGenerating] = useState(false)
   const [comparisonData, setComparisonData] = useState<Stores | null>(null)
   const { rows } = useShopping();
 
@@ -29,7 +37,6 @@ function App() {
     getRidOfWatermark()
   }, [comparisonData])
 
-  // share button
   const handleShare = async () => {
     const shareData = {
       title: 'Price Comparison App',
@@ -49,104 +56,67 @@ function App() {
     }
   }
 
-
-  // FIND CHEAPEST STORE PER INGREDIENT
-  const cheapestByStore = useMemo(() => {
-    const grouped: Record<
-      string,
-      { ingredient: string; unit: string; unitPrice: number; quantity: number; price: number }[]
-    > = {}
-
-    const stores = (sampleData as any)?.stores ?? []
-
-    const bestByIngredient: Record<
-      string,
-      { store: string; ingredient: string; unit: string; unitPrice: number; quantity: number; price: number }
-    > = {}
-
-    stores.forEach((store: any) => {
-      const storeName = store.name
-      const items = store.items ?? []
-
-      items.forEach((item: any) => {
-        const ingredient = item.ingredient
-        const unit = item.unit_of_measure
-        const quantity = Number(item.quantity)
-        const price = Number(item.price)
-
-        if (!ingredient || !unit || quantity <= 0 || price <= 0) return
-
-        const unitPrice = price / quantity
-
-        const existing = bestByIngredient[ingredient]
-        if (!existing || unitPrice < existing.unitPrice) {
-          bestByIngredient[ingredient] = {
-            store: storeName,
-            ingredient,
-            unit,
-            unitPrice,
-            quantity,
-            price
-          }
+  const ingredientPayload = useMemo<Ingredient[]>(() => {
+    return rows
+      .map((row) => {
+        const typedRow = row as ShoppingRow
+        return {
+          ingredientId: String(typedRow.name ?? '').trim(),
+          quantity: Number(typedRow.quantity ?? 0),
+          unit_of_measure: String(typedRow.unit_of_measure ?? '').trim(),
+          price: null
         }
       })
-    })
+      .filter((item) => item.ingredientId.length > 0 && item.quantity > 0)
+  }, [rows])
 
-    // Group winners by store
-    Object.values(bestByIngredient).forEach((best) => {
-      if (!grouped[best.store]) grouped[best.store] = []
-      grouped[best.store].push({
-        ingredient: best.ingredient,
-        unit: best.unit,
-        unitPrice: best.unitPrice,
-        quantity: best.quantity,
-        price: best.price
-      })
-    })
+  const previewStores = useMemo<PriceStore[]>(() => {
+    if (comparisonData?.stores && comparisonData.stores.length > 0) {
+      return comparisonData.stores as unknown as PriceStore[]
+    }
 
-    // Sort cheapest first inside each store
-    Object.keys(grouped).forEach((store) => {
-      grouped[store].sort((a, b) => a.unitPrice - b.unitPrice)
-    })
-
-    // Force order: Wegmans → Costco → others
-    const ordered: typeof grouped = {}
-
-    if (grouped['Wegmans']) ordered['Wegmans'] = grouped['Wegmans']
-    if (grouped['Costco']) ordered['Costco'] = grouped['Costco']
-
-    Object.keys(grouped).forEach((store) => {
-      if (store !== 'Wegmans' && store !== 'Costco') {
-        ordered[store] = grouped[store]
-      }
-    })
-
-    return ordered
-  }, [])
+    const fallbackData = sampleData as unknown as { stores?: PriceStore[] }
+    return fallbackData.stores ?? []
+  }, [comparisonData])
 
   const handleGenerate = async () => {
+    if (ingredientPayload.length === 0) {
+      alert('Please add at least one item with quantity before generating a comparison.')
+      return
+    }
+
+    setIsGenerating(true)
     try {
-        comparePrices(rows as Ingredient[]).then(res => {
-          console.log("Received response from price comparison:", res);
-          if (!res || !res.stores) {
-            alert("Received invalid response from price comparison.");
-            return;
-          }
-          setComparisonData(res);
-          setShowResults(true);
-        });
+      const response = await comparePrices(ingredientPayload)
+      console.log('Received response from price comparison:', response)
+
+      if (!response?.stores) {
+        alert('Received invalid response from price comparison.')
+        return
+      }
+
+      setComparisonData(response)
     } catch (error) {
-        console.error("Error generating content:", error);
-        alert("Failed to generate price comparison.");
+      console.error('Error generating content:', error)
+      alert('Failed to generate price comparison.')
     } finally {
+      setIsGenerating(false)
+    }
+  }
 
-    }    
-  };
+  const handleMore = () => {
+    if (!comparisonData?.stores) {
+      alert('Generate a price comparison first.')
+      return
+    }
 
-  if (showResults) {
+    setShowResults(true)
+  }
+
+  if (showResults && comparisonData) {
     return (
       <ResultsPage
-        data={comparisonData!}
+        data={comparisonData}
         onBack={() => setShowResults(false)}
         githubUrl="https://github.com/<your-user-or-org>/<your-repo>"
       />
@@ -167,70 +137,22 @@ function App() {
   return (
     <>
       <div className="Home">
+        <TopBarSection onShare={handleShare}>
+          <Location />
+        </TopBarSection>
 
-        <div className="Top">
-          <div className="LocationContainer">
-            <Location />
-          </div>
-
-          <div className="Share">
-            <button onClick={handleShare}>Share</button>
-            <div style={{ width: "40px" }} /> {/* Spacer */}
-            <img
-              src="../../public/trimmed-logo.png"
-              alt="CartSmart"
-              loading="lazy"
-              height= "80px"
-              width= "137px"
-            />
-          </div>
-        </div>
         <div className="Middle">
           <div className="ShoppingList">
             <ShoppingList />
           </div>
 
-          <div className="PricesList">
-
-            <button className="GenerateButton" onClick={handleGenerate} >
-              <Stack direction="row" sx={{ my: 0, width: 1, alignItems:"center", justifyContent:"center" }}>
-                <img
-                  src="../../public/gemini-star.png"
-                  alt="Gemini"
-                  loading="lazy"
-                  height= "20px"
-                  width= "20px"
-                />
-                <span style={{ width: 10 }} /> {/* Spacer */}
-                <Typography variant="h6" fontWeight={500}>
-                  Generate Price Comparison
-                </Typography>
-              </Stack>
-            </button>
-
-            <div className="CheapestPreview">
-              <h3>Cheapest Items By Store</h3>
-
-              {Object.entries(cheapestByStore).map(([store, items]) => (
-                <div key={store} className="StoreGroup">
-                  <h4>{store}</h4>
-                  <ul>
-                    {items.map((item, index) => (
-                      <li key={index}>
-                        {item.ingredient} — $
-                        {item.unitPrice.toFixed(2)} / {item.unit}
-                        <span style={{ opacity: 0.6 }}>
-                          {' '}({item.quantity} {item.unit} for ${item.price.toFixed(2)})
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-
-            </div>
-
-          </div>
+          <PriceComparisonPanel
+            stores={previewStores}
+            onGenerate={handleGenerate}
+            onMore={handleMore}
+            isGenerating={isGenerating}
+            disableMore={!comparisonData?.stores}
+          />
 
           <div className="RecipeList">
             <RecipeList />
@@ -242,7 +164,6 @@ function App() {
             <Chat />
           </div>
         </div>
-
       </div>
     </>
   )

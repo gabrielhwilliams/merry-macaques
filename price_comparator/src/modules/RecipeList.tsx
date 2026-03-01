@@ -67,7 +67,7 @@ function AddIngredients(props: Pick<GridRowParams, 'row'>) {
 
   return (
     <IconButton
-      sx={{ width: 32, height: 32}}
+      sx={{ width: 32, height: 32, color: 'var(--color-text-muted)' }}
       aria-label="Add Ingredients to Shopping List"
       onClick={() => {
         row.ingredients.forEach((ingredient: any) => {
@@ -106,10 +106,10 @@ function ListViewCell(props: GridRenderCellParams) {
         <Typography variant="body2" fontWeight={500}>
           {row.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ textWrap: "wrap" }}>
+        <Typography variant="body2" sx={{ color: 'var(--color-text-muted)', textWrap: "wrap" }}>
           {row.description}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ textWrap: "wrap" }}>
+        <Typography variant="body2" sx={{ color: 'var(--color-text-muted)', textWrap: "wrap" }}>
           {Array.isArray(row.ingredients)
             ? row.ingredients.map((item: any) => (
                 <span key={item.id} style={{ display: 'block', paddingLeft: 20 }}>
@@ -145,7 +145,30 @@ export default function ListViewEdit() {
             listView
             listViewColumn={listViewColDef}
             hideFooter={true}
-            sx={{ backgroundColor: 'background.paper' }}
+            sx={{
+              backgroundColor: 'var(--color-surface)',
+              color: 'var(--color-text)',
+              border: 'none',
+              '& .MuiDataGrid-columnHeaders': {
+                backgroundColor: 'var(--color-surface-muted)',
+                borderBottom: '1px solid var(--color-border)',
+              },
+              '& .MuiDataGrid-cell': {
+                borderColor: 'var(--color-border)',
+              },
+              '& .MuiDataGrid-row': {
+                backgroundColor: 'var(--color-surface)',
+              },
+              '& .MuiDataGrid-row:hover': {
+                backgroundColor: 'var(--color-accent)',
+              },
+              '& .MuiDataGrid-virtualScroller': {
+                backgroundColor: 'var(--color-surface)',
+              },
+              '& .MuiDataGrid-filler': {
+                backgroundColor: 'var(--color-surface)',
+              },
+            }}
         />
     </div>
   );

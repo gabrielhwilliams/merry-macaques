@@ -17,22 +17,24 @@ const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
-    style: {
+    sx: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
       width: 250,
+      backgroundColor: 'var(--color-surface)',
+      color: 'var(--color-text)',
+      border: '1px solid var(--color-border)',
     },
   },
 };
 
 const places = [
-  'Walmart', 
-  'Target', 
-  'Costco', 
-  'Kroger', 
-  'Safeway', 
-  'Whole Foods', 
-  'Aldi', 
-  'Trader Joe\'s'
+  'Wegmans - 650 Hylan Dr', 
+  'ALDI - 615 Jefferson Rd', 
+  'Walmart - 1200 Marketplace Dr', 
+  'Target - 2325 Marketplace Dr', 
+  'Tops - 1215 Jefferson Rd', 
+  'BJ\'s - 400 Jay Scutti Blvd', 
+  'Costco - 335 Westfall Rd', 
 ];
 
 export default function Location() {
@@ -48,6 +50,32 @@ export default function Location() {
     );
   };
 
+  const fieldSx = {
+    width: '100%',
+    '& .MuiOutlinedInput-root': {
+      color: 'var(--color-text)',
+      backgroundColor: 'var(--color-surface)',
+      '& fieldset': {
+        borderColor: 'var(--color-border)',
+      },
+      '&:hover fieldset': {
+        borderColor: 'var(--color-primary)',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'var(--color-primary)',
+      },
+    },
+    '& .MuiInputLabel-root': {
+      color: 'var(--color-text-muted)',
+    },
+    '& .MuiInputLabel-root.Mui-focused': {
+      color: 'var(--color-primary)',
+    },
+    '& .MuiSvgIcon-root': {
+      color: 'var(--color-text-muted)',
+    },
+  };
+
   return (
     <div className='Location'>
       <div className='addressTextField'>
@@ -57,12 +85,17 @@ export default function Location() {
           noValidate
           autoComplete="off"
         >
-          <TextField id="outlined-basic" label="Enter Address" variant="outlined" />
+          <TextField
+            id="outlined-basic"
+            label="Enter Address"
+            variant="outlined"
+            sx={fieldSx}
+          />
         </Box>
       </div>
 
       <div className='storeSelect'>
-        <FormControl sx={{ my: 1, width: '100%' }}>
+        <FormControl sx={{ my: 1, ...fieldSx }}>
           <InputLabel id="demo-multiple-checkbox-label">Select Nearby Stores</InputLabel>
           <Select
             labelId="demo-multiple-checkbox-label"

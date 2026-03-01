@@ -123,7 +123,7 @@ export default function PriceComparisonPanel({
         <Stack direction="row" sx={{ my: 0, width: 1, alignItems: 'center', justifyContent: 'center' }}>
           <img src="/gemini-star.png" alt="Gemini" loading="lazy" height="20" width="20" />
           <span style={{ width: 10 }} />
-          <Typography variant="h6" fontWeight={500}>
+          <Typography variant="h6" fontWeight={500} color={localStorage.getItem('themeMode') === 'dark' ? 'white' : 'black'}>
             {isGenerating ? 'Generating...' : 'Generate Price Comparison'}
           </Typography>
         </Stack>

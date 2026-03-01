@@ -10,11 +10,12 @@ import TopBarSection from './modules/TopBarSection'
 import PriceComparisonPanel, { type PriceStore } from './modules/PriceComparisonPanel'
 
 import ResultsPage from './ResultsPage'
-import sampleData from './sample.json'
 import { comparePrices } from './GeminiUtility'
 import type { Ingredient } from './schemas/ingredients.type'
 import type { Stores } from './schemas/stores.type'
 import { useShopping } from './context/ShoppingContext'
+
+type ThemeMode = 'light' | 'dark'
 
 type ShoppingRow = {
   name?: string
@@ -26,6 +27,11 @@ function App() {
   const [showResults, setShowResults] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
   const [comparisonData, setComparisonData] = useState<Stores | null>(null)
+  const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
+    const storedTheme = localStorage.getItem('themeMode')
+    return storedTheme === 'dark' ? 'dark' : 'light'
+  })
+  
   const { rows } = useShopping();
 
   // Remove MUI watermark whenever component updates or comparison data changes
@@ -36,6 +42,15 @@ function App() {
   useEffect(() => {
     getRidOfWatermark()
   }, [comparisonData])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', themeMode)
+    localStorage.setItem('themeMode', themeMode)
+  }, [themeMode])
+
+  const toggleTheme = () => {
+    setThemeMode((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))
+  }
 
   const handleShare = async () => {
     const shareData = {
@@ -71,12 +86,8 @@ function App() {
   }, [rows])
 
   const previewStores = useMemo<PriceStore[]>(() => {
-    if (comparisonData?.stores && comparisonData.stores.length > 0) {
-      return comparisonData.stores as unknown as PriceStore[]
-    }
-
-    const fallbackData = sampleData as unknown as { stores?: PriceStore[] }
-    return fallbackData.stores ?? []
+    if (!comparisonData?.stores) return []
+    return comparisonData.stores as unknown as PriceStore[]
   }, [comparisonData])
 
   const handleGenerate = async () => {
@@ -105,11 +116,7 @@ function App() {
   }
 
   const handleMore = () => {
-    if (!comparisonData?.stores) {
-      alert('Generate a price comparison first.')
-      return
-    }
-
+    if (!comparisonData?.stores) return
     setShowResults(true)
   }
 
@@ -119,6 +126,8 @@ function App() {
         data={comparisonData}
         onBack={() => setShowResults(false)}
         githubUrl="https://github.com/<your-user-or-org>/<your-repo>"
+        themeMode={themeMode}
+        onToggleTheme={toggleTheme}
       />
     )
   }
@@ -137,7 +146,7 @@ function App() {
   return (
     <>
       <div className="Home">
-        <TopBarSection onShare={handleShare}>
+        <TopBarSection onShare={handleShare} onToggleTheme={toggleTheme} themeMode={themeMode}>
           <Location />
         </TopBarSection>
 

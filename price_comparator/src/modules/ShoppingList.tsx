@@ -70,7 +70,7 @@ function EditAction(props: Pick<GridRowParams, 'row'>) {
 
   return (
     <React.Fragment>
-      <IconButton aria-label="Edit" onClick={handleEdit}>
+      <IconButton aria-label="Edit" onClick={handleEdit} sx={{ color: 'var(--color-text-muted)' }}>
         <EditIcon />
       </IconButton>
 
@@ -157,7 +157,6 @@ function AddAction() {
   return (
     <React.Fragment>
       <Fab
-        color="primary"
         aria-label="add"
         onClick={handleOpen}
         sx={{
@@ -165,6 +164,11 @@ function AddAction() {
           bottom: 16,
           right: 16,
           zIndex: 1,
+          bgcolor: 'var(--color-primary)',
+          color: '#ffffff',
+          '&:hover': {
+            bgcolor: 'var(--color-primary-hover)',
+          },
         }}
       >
         <AddIcon />
@@ -232,6 +236,7 @@ function DeleteAction(props: Pick<GridRowParams, 'row'>) {
     <IconButton
       aria-label="Delete"
       onClick={() => setRows(prevRows => prevRows.filter(r => r.id !== row.id))}
+      sx={{ color: 'var(--color-text-muted)' }}
     >
       <DeleteIcon />
     </IconButton>
@@ -257,7 +262,7 @@ function ListViewCell(props: GridRenderCellParams) {
         <Typography variant="body2" fontWeight={500}>
           {row.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{ color: 'var(--color-text-muted)' }}>
           {row.quantity} {row.unit_of_measure}
         </Typography>
       </Stack>
@@ -298,7 +303,30 @@ export default function ListViewEdit() {
             listView
             listViewColumn={listViewColDef}
             hideFooter={true}
-            sx={{ backgroundColor: 'background.paper' }}
+            sx={{
+              backgroundColor: 'var(--color-surface)',
+              color: 'var(--color-text)',
+              border: 'none',
+              '& .MuiDataGrid-columnHeaders': {
+                backgroundColor: 'var(--color-surface-muted)',
+                borderBottom: '1px solid var(--color-border)',
+              },
+              '& .MuiDataGrid-cell': {
+                borderColor: 'var(--color-border)',
+              },
+              '& .MuiDataGrid-row': {
+                backgroundColor: 'var(--color-surface)',
+              },
+              '& .MuiDataGrid-row:hover': {
+                backgroundColor: 'var(--color-accent)',
+              },
+              '& .MuiDataGrid-virtualScroller': {
+                backgroundColor: 'var(--color-surface)',
+              },
+              '& .MuiDataGrid-filler': {
+                backgroundColor: 'var(--color-surface)',
+              },
+            }}
         />
         <AddAction />
     </Box>

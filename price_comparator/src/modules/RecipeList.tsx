@@ -64,30 +64,31 @@ var rows: GridRowsProp = [
       { id: randomId(), name: "Shredded Cheese", quantity: 1, unit_of_measure: "bag" },
     ]
   },
-  {
-    id: randomId(),
-    color: "LightSalmon",
-    name: "Pesto Pasta",
-    description: "Al dente penne pasta tossed in a vibrant basil pesto with cherry tomatoes.",
-    ingredients: [
-      { id: randomId(), name: "Penne Pasta", quantity: 1, unit_of_measure: "lb" },
-      { id: randomId(), name: "Pesto Sauce", quantity: 1, unit_of_measure: "jar" },
-      { id: randomId(), name: "Cherry Tomatoes", quantity: 1, unit_of_measure: "pint" },
-      { id: randomId(), name: "Parmesan Cheese", quantity: 1, unit_of_measure: "container" },
-    ]
-  },
-  {
-    id: randomId(),
-    color: "Plum",
-    name: "Beef Stir Fry",
-    description: "Quick and healthy stir-fry with thinly sliced beef and a medley of bell peppers.",
-    ingredients: [
-      { id: randomId(), name: "Flank Steak", quantity: 1, unit_of_measure: "lb" },
-      { id: randomId(), name: "Bell Peppers", quantity: 3, unit_of_measure: "units" },
-      { id: randomId(), name: "Soy Sauce", quantity: 1, unit_of_measure: "bottle" },
-      { id: randomId(), name: "Jasmine Rice", quantity: 1, unit_of_measure: "bag" },
-    ]
-  },
+  
+  // {
+  //   id: randomId(),
+  //   color: "LightSalmon",
+  //   name: "Pesto Pasta",
+  //   description: "Al dente penne pasta tossed in a vibrant basil pesto with cherry tomatoes.",
+  //   ingredients: [
+  //     { id: randomId(), name: "Penne Pasta", quantity: 1, unit_of_measure: "lb" },
+  //     { id: randomId(), name: "Pesto Sauce", quantity: 1, unit_of_measure: "jar" },
+  //     { id: randomId(), name: "Cherry Tomatoes", quantity: 1, unit_of_measure: "pint" },
+  //     { id: randomId(), name: "Parmesan Cheese", quantity: 1, unit_of_measure: "container" },
+  //   ]
+  // },
+  // {
+  //   id: randomId(),
+  //   color: "Plum",
+  //   name: "Beef Stir Fry",
+  //   description: "Quick and healthy stir-fry with thinly sliced beef and a medley of bell peppers.",
+  //   ingredients: [
+  //     { id: randomId(), name: "Flank Steak", quantity: 1, unit_of_measure: "lb" },
+  //     { id: randomId(), name: "Bell Peppers", quantity: 3, unit_of_measure: "units" },
+  //     { id: randomId(), name: "Soy Sauce", quantity: 1, unit_of_measure: "bottle" },
+  //     { id: randomId(), name: "Jasmine Rice", quantity: 1, unit_of_measure: "bag" },
+  //   ]
+  // },
 ];
 
 const columns: GridColDef[] = [

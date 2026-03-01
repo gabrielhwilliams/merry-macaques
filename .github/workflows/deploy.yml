@@ -28,19 +28,18 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: cd into price_comparator
-        run: cd price_comparator
-
       - name: Install dependencies
         run: npm ci
+        working-directory: ./price_comparator
 
       - name: Build
         run: npm run build
+        working-directory: ./price_comparator
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: price_comparator/dist
 
   deploy:
     needs: build

@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI, SchemaType, type Schema, type Tool } from "@google/generative-ai";
+import { GoogleGenerativeAI, SchemaType, type Schema } from "@google/generative-ai";
 import type { Ingredient } from "./schemas/ingredients.type";
 import type { Stores } from "./schemas/stores.type";
 
@@ -131,7 +131,7 @@ const generativeAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY)
 
 const model = generativeAI.getGenerativeModel({ 
         model: "gemini-3-flash-preview",
-        tools: [{ googleSearch: {} }],
+        tools: [{ googleSearchRetrieval: {} }],
         systemInstruction: systemInstruction2,
         generationConfig: {
             temperature: 0.1,

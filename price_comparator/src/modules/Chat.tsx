@@ -6,8 +6,6 @@ import { Box, TextField, Stack, Typography } from '@mui/material';
 import { generateRecipes } from './RecipeGemini';
 import { useState } from "react";
 
-import AddIngredients from './RecipeList';
-
 type ThemeMode = 'light' | 'dark'
 
 type ChatProps = {
@@ -15,7 +13,7 @@ type ChatProps = {
 }
 
 export default function Chat({ themeMode = 'light' }: ChatProps) {
-  const [response, setResponse] = useState("");
+  const [_response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const geminiLogoSrc = themeMode === 'dark' ? '/gemini-logo-black.png' : '/gemini-logo-white.png';
 
@@ -69,7 +67,7 @@ export default function Chat({ themeMode = 'light' }: ChatProps) {
         </Box>
       </div>
       <div className='ChatEnter'>
-        <button className='ChatButton' onClick={() => AddIngredients(handleGenerate())}>
+        <button className='ChatButton' onClick={() => handleGenerate() } disabled={loading}>
           <Stack direction="row" sx={{ my: 0, width: 1, alignItems:"center", justifyContent:"center" }}>
             <Typography variant="h4" fontWeight={500}>
               Ask

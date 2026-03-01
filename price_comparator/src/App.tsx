@@ -1,5 +1,4 @@
-import { useState, useMemo } from 'react'
-import { GeminiComponent } from './GeminiTest'
+import { useState, useMemo, useEffect } from 'react'
 import './App.css'
 
 // Modules
@@ -11,7 +10,6 @@ import RecipeList from './modules/RecipeList'
 import ResultsPage from './ResultsPage'
 import sampleData from './sample.json'
 import { comparePrices } from './GeminiUtility'
-import type{ GridRowsProp } from '@mui/x-data-grid-pro'
 import type { Ingredient } from './schemas/ingredients.type'
 import type { Stores } from './schemas/stores.type'
 import { useShopping } from './context/ShoppingContext'
@@ -21,6 +19,15 @@ function App() {
   const [showResults, setShowResults] = useState(false)
   const [comparisonData, setComparisonData] = useState<Stores | null>(null)
   const { rows } = useShopping();
+
+  // Remove MUI watermark whenever component updates or comparison data changes
+  useEffect(() => {
+    getRidOfWatermark()
+  }, [])
+
+  useEffect(() => {
+    getRidOfWatermark()
+  }, [comparisonData])
 
   // share button
   const handleShare = async () => {
@@ -146,7 +153,17 @@ function App() {
     )
   }
 
- 
+  const getRidOfWatermark = () => {
+    var parentdocsRaw = document.getElementsByClassName("MuiDataGrid-main");
+
+    Array.from(parentdocsRaw).forEach((parentdoc) => {
+        const watermark = Array.from(parentdoc.children).find((div) => (div as HTMLElement).innerText === "MUI X Missing license key");
+        if (watermark) {
+        (watermark as HTMLElement).remove();
+        }
+    });
+  };
+
   return (
     <>
       <div className="Home">

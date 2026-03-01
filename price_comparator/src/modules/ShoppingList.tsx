@@ -165,7 +165,7 @@ function AddAction() {
           right: 16,
           zIndex: 1,
           bgcolor: 'var(--color-primary)',
-          color: '#ffffff',
+          color: 'var(--color-button-text)',
           '&:hover': {
             bgcolor: 'var(--color-primary-hover)',
           },

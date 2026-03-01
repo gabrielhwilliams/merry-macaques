@@ -8,9 +8,16 @@ import { useState } from "react";
 
 import AddIngredients from './RecipeList';
 
-export default function Chat() {
+type ThemeMode = 'light' | 'dark'
+
+type ChatProps = {
+  themeMode?: ThemeMode
+}
+
+export default function Chat({ themeMode = 'light' }: ChatProps) {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
+  const geminiLogoSrc = themeMode === 'dark' ? '/gemini-logo-black.png' : '/gemini-logo-white.png';
 
   const promptFieldSx = {
     width: '100%',
@@ -69,7 +76,7 @@ export default function Chat() {
             </Typography>
             <span style={{ width: 20 }} /> {/* Spacer */}
             <img
-              src="/gemini-logo-white.png"
+              src={geminiLogoSrc}
               alt="Gemini"
               loading="lazy"
               height= "72px"

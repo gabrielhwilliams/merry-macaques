@@ -170,7 +170,7 @@ function App() {
 
         <div className="Bottom">
           <div className="Chat">
-            <Chat />
+            <Chat themeMode={themeMode} />
           </div>
         </div>
       </div>

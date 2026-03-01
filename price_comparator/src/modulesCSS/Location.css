@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
   width: calc(64.5vw);
 }
 
@@ -12,4 +11,17 @@
 
 .storeSelect {
   width: 31.5vw;
+}
+
+@media (max-width: 900px) {
+  .Location {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .addressTextField,
+  .storeSelect {
+    width: 100%;
+  }
 }

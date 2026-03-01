@@ -12,6 +12,7 @@
   --color-primary-hover: #16552d;
   --color-accent: #e6f6ec;
   --color-shadow: rgba(9, 41, 23, 0.1);
+  --color-button-text: #ffffff;
 
   color-scheme: light;
 }
@@ -28,6 +29,7 @@
   --color-primary-hover: #58be7d;
   --color-accent: #234332;
   --color-shadow: rgba(0, 0, 0, 0.35);
+  --color-button-text: #000000;
 
   color-scheme: dark;
 }

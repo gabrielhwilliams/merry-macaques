@@ -32,7 +32,7 @@
     border: 1px solid var(--color-primary);
     border-radius: 10px;
     background: var(--color-primary);
-    color: #ffffff;
+    color: var(--color-button-text);
     transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -42,9 +42,34 @@
 }
 
 .ChatButton .MuiTypography-root {
-    color: #ffffff;
+    color: var(--color-button-text);
 }
 
 .ChatButton img {
     object-fit: contain;
+}
+
+@media (max-width: 900px) {
+    .ChatContainer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .ChatMessage,
+    .ChatEnter {
+        width: 100%;
+    }
+
+    .ChatButton {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 520px) {
+    .ChatButton img {
+        width: 96px;
+        height: 54px;
+    }
 }

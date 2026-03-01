@@ -1,18 +1,124 @@
 {
-    "stores": [
-        {
-        "name": "Costco",
-        "items": [
-            { "ingredient": "chicken", "unit_of_measure": "pounds", "quantity": 2, "price": 12.99 },
-            { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 24, "price": 5.49 }
-            ]   
-        },
-        {
-        "name": "Wegmans",
-        "items": [
-            { "ingredient": "chicken", "unit_of_measure": "pounds", "quantity": 2, "price": 14.29 },
-            { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 12, "price": 4.99 }
-            ]
-        }
-    ]
+  "stores": [
+    {
+      "name": "Costco",
+      "items": [
+        { "ingredient": "chicken breast", "unit_of_measure": "pounds", "quantity": 6, "price": 32.49 },
+        { "ingredient": "ground beef", "unit_of_measure": "pounds", "quantity": 5, "price": 24.99 },
+        { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 80, "price": 13.49 },
+        { "ingredient": "milk", "unit_of_measure": "gallons", "quantity": 2, "price": 7.19 },
+        { "ingredient": "eggs", "unit_of_measure": "count", "quantity": 24, "price": 6.49 },
+        { "ingredient": "bread", "unit_of_measure": "loaves", "quantity": 2, "price": 7.49 },
+        { "ingredient": "butter", "unit_of_measure": "pounds", "quantity": 4, "price": 15.99 },
+        { "ingredient": "salmon", "unit_of_measure": "pounds", "quantity": 3, "price": 31.99 },
+        { "ingredient": "spinach", "unit_of_measure": null, "quantity": null, "price": null },
+        { "ingredient": "yogurt", "unit_of_measure": "ounces", "quantity": 32, "price": 5.99 }
+      ]
+    },
+    {
+      "name": "Wegmans",
+      "items": [
+        { "ingredient": "chicken breast", "unit_of_measure": "pounds", "quantity": 2, "price": 12.99 },
+        { "ingredient": "ground beef", "unit_of_measure": "pounds", "quantity": 1, "price": 6.49 },
+        { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 32, "price": 6.79 },
+        { "ingredient": "milk", "unit_of_measure": "gallons", "quantity": 1, "price": 3.89 },
+        { "ingredient": "eggs", "unit_of_measure": "count", "quantity": 12, "price": 3.69 },
+        { "ingredient": "bread", "unit_of_measure": "loaves", "quantity": 1, "price": 3.39 },
+        { "ingredient": "butter", "unit_of_measure": "pounds", "quantity": 1, "price": 4.39 },
+        { "ingredient": "salmon", "unit_of_measure": "pounds", "quantity": 1, "price": 14.99 },
+        { "ingredient": "spinach", "unit_of_measure": "ounces", "quantity": 8, "price": 3.49 },
+        { "ingredient": "yogurt", "unit_of_measure": "ounces", "quantity": 16, "price": 2.99 }
+      ]
+    },
+    {
+      "name": "Aldi",
+      "items": [
+        { "ingredient": "chicken breast", "unit_of_measure": "pounds", "quantity": 2, "price": 10.99 },
+        { "ingredient": "ground beef", "unit_of_measure": "pounds", "quantity": 1, "price": 5.89 },
+        { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 32, "price": 5.19 },
+        { "ingredient": "milk", "unit_of_measure": "gallons", "quantity": 1, "price": 3.29 },
+        { "ingredient": "eggs", "unit_of_measure": "count", "quantity": 12, "price": 2.89 },
+        { "ingredient": "bread", "unit_of_measure": "loaves", "quantity": 1, "price": 2.49 },
+        { "ingredient": "butter", "unit_of_measure": "pounds", "quantity": 1, "price": 3.69 },
+        { "ingredient": "salmon", "unit_of_measure": null, "quantity": null, "price": null },
+        { "ingredient": "spinach", "unit_of_measure": "ounces", "quantity": 8, "price": 2.69 },
+        { "ingredient": "yogurt", "unit_of_measure": "ounces", "quantity": 16, "price": 2.49 }
+      ]
+    },
+    {
+      "name": "Walmart",
+      "items": [
+        { "ingredient": "chicken breast", "unit_of_measure": "pounds", "quantity": 2, "price": 11.79 },
+        { "ingredient": "ground beef", "unit_of_measure": "pounds", "quantity": 1, "price": 5.49 },
+        { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 16, "price": 3.39 },
+        { "ingredient": "milk", "unit_of_measure": "gallons", "quantity": 1, "price": 3.49 },
+        { "ingredient": "eggs", "unit_of_measure": "count", "quantity": 12, "price": 3.09 },
+        { "ingredient": "bread", "unit_of_measure": "loaves", "quantity": 1, "price": 2.59 },
+        { "ingredient": "butter", "unit_of_measure": "pounds", "quantity": 1, "price": 3.99 },
+        { "ingredient": "salmon", "unit_of_measure": "pounds", "quantity": 1, "price": 13.79 },
+        { "ingredient": "spinach", "unit_of_measure": null, "quantity": null, "price": null },
+        { "ingredient": "yogurt", "unit_of_measure": "ounces", "quantity": 16, "price": 2.79 }
+      ]
+    },
+    {
+      "name": "Whole Foods",
+      "items": [
+        { "ingredient": "chicken breast", "unit_of_measure": "pounds", "quantity": 2, "price": 19.49 },
+        { "ingredient": "ground beef", "unit_of_measure": "pounds", "quantity": 1, "price": 8.49 },
+        { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 32, "price": 9.49 },
+        { "ingredient": "milk", "unit_of_measure": "gallons", "quantity": 1, "price": 4.79 },
+        { "ingredient": "eggs", "unit_of_measure": "count", "quantity": 12, "price": 5.19 },
+        { "ingredient": "bread", "unit_of_measure": "loaves", "quantity": 1, "price": 4.99 },
+        { "ingredient": "butter", "unit_of_measure": "pounds", "quantity": 1, "price": 5.99 },
+        { "ingredient": "salmon", "unit_of_measure": "pounds", "quantity": 1, "price": 18.49 },
+        { "ingredient": "spinach", "unit_of_measure": "ounces", "quantity": 8, "price": 4.79 },
+        { "ingredient": "yogurt", "unit_of_measure": "ounces", "quantity": 16, "price": 4.29 }
+      ]
+    },
+    {
+      "name": "Trader Joe's",
+      "items": [
+        { "ingredient": "chicken breast", "unit_of_measure": "pounds", "quantity": 1.5, "price": 8.99 },
+        { "ingredient": "ground beef", "unit_of_measure": "pounds", "quantity": 1, "price": 6.19 },
+        { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 16, "price": 3.89 },
+        { "ingredient": "milk", "unit_of_measure": "gallons", "quantity": 1, "price": 3.69 },
+        { "ingredient": "eggs", "unit_of_measure": "count", "quantity": 12, "price": 3.39 },
+        { "ingredient": "bread", "unit_of_measure": "loaves", "quantity": 1, "price": 3.59 },
+        { "ingredient": "butter", "unit_of_measure": null, "quantity": null, "price": null },
+        { "ingredient": "salmon", "unit_of_measure": "pounds", "quantity": 1, "price": 15.99 },
+        { "ingredient": "spinach", "unit_of_measure": "ounces", "quantity": 8, "price": 3.29 },
+        { "ingredient": "yogurt", "unit_of_measure": "ounces", "quantity": 16, "price": 2.89 }
+      ]
+    },
+    {
+      "name": "Target",
+      "items": [
+        { "ingredient": "chicken breast", "unit_of_measure": "pounds", "quantity": 2, "price": 13.49 },
+        { "ingredient": "ground beef", "unit_of_measure": "pounds", "quantity": 1, "price": 6.29 },
+        { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 20, "price": 4.59 },
+        { "ingredient": "milk", "unit_of_measure": "gallons", "quantity": 1, "price": 3.59 },
+        { "ingredient": "eggs", "unit_of_measure": "count", "quantity": 18, "price": 4.59 },
+        { "ingredient": "bread", "unit_of_measure": "loaves", "quantity": 1, "price": 3.19 },
+        { "ingredient": "butter", "unit_of_measure": "pounds", "quantity": 1, "price": 4.49 },
+        { "ingredient": "salmon", "unit_of_measure": null, "quantity": null, "price": null },
+        { "ingredient": "spinach", "unit_of_measure": "ounces", "quantity": 8, "price": 3.59 },
+        { "ingredient": "yogurt", "unit_of_measure": "ounces", "quantity": 16, "price": 3.19 }
+      ]
+    },
+    {
+      "name": "BJ's",
+      "items": [
+        { "ingredient": "chicken breast", "unit_of_measure": "pounds", "quantity": 5, "price": 27.99 },
+        { "ingredient": "ground beef", "unit_of_measure": "pounds", "quantity": 4, "price": 21.49 },
+        { "ingredient": "rice", "unit_of_measure": "ounces", "quantity": 64, "price": 11.99 },
+        { "ingredient": "milk", "unit_of_measure": "gallons", "quantity": 2, "price": 6.99 },
+        { "ingredient": "eggs", "unit_of_measure": "count", "quantity": 24, "price": 6.19 },
+        { "ingredient": "bread", "unit_of_measure": null, "quantity": null, "price": null },
+        { "ingredient": "butter", "unit_of_measure": "pounds", "quantity": 3, "price": 13.49 },
+        { "ingredient": "salmon", "unit_of_measure": "pounds", "quantity": 2, "price": 24.99 },
+        { "ingredient": "spinach", "unit_of_measure": null, "quantity": null, "price": null },
+        { "ingredient": "yogurt", "unit_of_measure": "ounces", "quantity": 32, "price": 5.79 }
+      ]
+    }
+  ]
 }

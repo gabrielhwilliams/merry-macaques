@@ -1,7 +1,7 @@
 import '../index.css'
 import '../modulesCSS/Chat.css'
 import './RecipeGemini'
-import { Box, TextField } from '@mui/material';
+import { Box, TextField, Stack, Typography, Avatar } from '@mui/material';
 
 import { generateRecipes } from './RecipeGemini';
 import { useState } from "react";
@@ -30,15 +30,30 @@ export default function Chat() {
       <div className='ChatMessage'>
         <Box
           component="form"
-          sx={{ '& > :not(style)': { my: 1, width: 1} }}
+          sx={{ my: 1, width: '100%' }}
           noValidate
           autoComplete="off"
         >
-          <TextField id="userPrompt" label="Ask Gemini" variant="outlined" />
+          <TextField id="userPrompt" label="Ask Gemini for Recipe Suggestions" variant="outlined" 
+          sx={{ width: '100%' }} />
         </Box>
       </div>
       <div className='ChatEnter'>
-        <button className='ChatButton' onClick={() => AddIngredients(handleGenerate())}>Ask</button> // NEEDS TO ADD COLOR THAT IS NOT ALREADY USED
+        <button className='ChatButton' onClick={() => AddIngredients(handleGenerate())}>
+          <Stack direction="row" sx={{ my: 0, width: 1, alignItems:"center", justifyContent:"center" }}>
+            <Typography variant="h4" fontWeight={500}>
+              Ask
+            </Typography>
+            <span style={{ width: 20 }} /> {/* Spacer */}
+            <img
+              src="../../public/gemini-logo-white.png"
+              alt="Gemini"
+              loading="lazy"
+              height= "72px"
+              width= "128px"
+            />
+          </Stack>
+        </button> {/* NEEDS TO ADD COLOR THAT IS NOT ALREADY USED */}
       </div>
     </div>
   );

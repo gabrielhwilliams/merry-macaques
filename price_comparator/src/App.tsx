@@ -148,13 +148,6 @@ function App() {
  
   return (
     <>
-      <details className="GeminiDocs">
-        <summary>Info</summary>
-        <div className="GeminiDocsBody">
-          <GeminiComponent />
-        </div>
-      </details>
-
       <div className="Home">
 
         <div className="Top">
@@ -173,10 +166,7 @@ function App() {
 
           <div className="PricesList">
 
-            <button
-              className="GenerateButton"
-              onClick={handleGenerate}
-            >
+            <button className="GenerateButton" onClick={handleGenerate} >
               Generate Price Comparison
             </button>
 
@@ -199,14 +189,8 @@ function App() {
                   </ul>
                 </div>
               ))}
-            </div>
 
-            <button
-              className="MoreButton"
-              onClick={handleGenerate}
-            >
-              more
-            </button>
+            </div>
 
           </div>
 

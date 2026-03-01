@@ -13,5 +13,20 @@
     justify-content: space-between;
     align-items: center;
 
-    width: 80%;
+    width: 70%;
+}
+
+.ChatEnter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30%;
+}
+
+.ChatButton {
+    margin-left: 10%;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 90%;
 }

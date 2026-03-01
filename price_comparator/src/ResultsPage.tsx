@@ -1,21 +1,26 @@
 import React, { useMemo } from "react";
 import "./ResultsPage.css";
+import type { Stores } from "./schemas/stores.type";
 
 type RawItem = {
-  ingredient: string;
-  unit_of_measure: string | null;
-  quantity: number | null;
-  price: number | null;
+  ingredientId: string;
+  unit_of_measure: string;
+  quantity: number;
+  price: number | null;  
 };
 
 type RawStore = {
   name: string;
-  items: RawItem[];
+  items: [{
+    ingredientId: string;
+    unit_of_measure: string;
+    quantity: number;
+    price: number | null;  
+  }]
+
 };
 
-export type ResultsJson = {
-  stores: RawStore[];
-};
+export type ResultsJson = Stores;
 
 type Props = {
   data: ResultsJson;
@@ -81,7 +86,7 @@ function computeCheapestByIngredient(stores: RawStore[]) {
       const up = getUnitPrice(item);
       if (!up) continue;
 
-      const ingredientKey = normalizeKey(item.ingredient);
+      const ingredientKey = normalizeKey(item.ingredientId);
       const current = cheapest.get(ingredientKey);
 
       if (!current || (current.kind === up.kind && up.unitPrice < current.unitPrice)) {
@@ -169,7 +174,7 @@ export default function ResultsPage({
                   </div>
 
                   {store.items.map((item, iIdx) => {
-                    const ingredientKey = normalizeKey(item.ingredient);
+                    const ingredientKey = normalizeKey(item.ingredientId);
                     const cheapest = cheapestByIngredient.get(ingredientKey);
                     const up = getUnitPrice(item);
 
@@ -194,7 +199,7 @@ export default function ResultsPage({
                           isCheapest ? "rp__row--cheapest" : "",
                         ].join(" ")}
                       >
-                        <div className="rp__item">{item.ingredient}</div>
+                        <div className="rp__item">{item.ingredientId}</div>
 
                         <div className="rp__cell rp__cell--qty">
                           {item.quantity == null || item.unit_of_measure == null

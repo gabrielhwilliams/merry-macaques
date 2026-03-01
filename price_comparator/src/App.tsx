@@ -9,9 +9,31 @@ import Chat from './modules/Chat'
 
 import ResultsPage from './ResultsPage'
 import sampleData from './sample.json'
+import { comparePrices } from './GeminiUtility'
+import type{ GridRowsProp } from '@mui/x-data-grid-pro'
+import { randomId } from '@mui/x-data-grid-generator'
+import type { Ingredient } from './schemas/ingredients.type'
+import type { Stores } from './schemas/stores.type'
 
 function App() {
   const [showResults, setShowResults] = useState(false)
+  const [comparisonData, setComparisonData] = useState<Stores | null>(null)
+  
+  const rows: GridRowsProp = [
+  {
+    id: randomId(),
+    name: "Eggs",
+    quantity: 11,
+    unit_of_measure: "",
+  },
+  {
+    id: randomId(), 
+    name: "Milk",
+    quantity: 0,
+    unit_of_measure: "Gallon",
+  },
+];
+
 
   // share button
   const handleShare = async () => {
@@ -108,16 +130,36 @@ function App() {
     return ordered
   }, [])
 
+  const handleGenerate = async () => {
+    try {
+        comparePrices(rows as Ingredient[]).then(res => {
+          console.log("Received response from price comparison:", res);
+          if (!res || !res.stores) {
+            alert("Received invalid response from price comparison.");
+            return;
+          }
+          setComparisonData(res);
+          setShowResults(true);
+        });
+    } catch (error) {
+        console.error("Error generating content:", error);
+        alert("Failed to generate price comparison.");
+    } finally {
+
+    }    
+  };
+
   if (showResults) {
     return (
       <ResultsPage
-        data={sampleData as any}
+        data={comparisonData!}
         onBack={() => setShowResults(false)}
         githubUrl="https://github.com/<your-user-or-org>/<your-repo>"
       />
     )
   }
 
+ 
   return (
     <>
       <details className="GeminiDocs">
@@ -140,14 +182,14 @@ function App() {
         </div>
         <div className="Middle">
           <div className="ShoppingList">
-            <ShoppingList />
+            <ShoppingList rows={rows} />
           </div>
 
           <div className="RescipeList">
 
             <button
               className="GenerateButton"
-              onClick={() => setShowResults(true)}
+              onClick={handleGenerate}
             >
               Generate Price Comparison
             </button>
@@ -175,7 +217,7 @@ function App() {
 
             <button
               className="MoreButton"
-              onClick={() => setShowResults(true)}
+              onClick={handleGenerate}
             >
               more
             </button>

@@ -37,7 +37,7 @@ const systemInstruction =
 
 const generativeAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 const model = generativeAI.getGenerativeModel({ 
-        model: "gemini-2.5-flash", 
+        model: "gemini-2.5-pro", 
         systemInstruction: systemInstruction,
         generationConfig: {
             responseMimeType: "application/json",

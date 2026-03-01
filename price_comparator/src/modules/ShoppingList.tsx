@@ -32,20 +32,6 @@ import {
   randomId,
 } from '@mui/x-data-grid-generator';
 
-const rows: GridRowsProp = [
-  {
-    id: randomId(),
-    name: "Eggs",
-    quantity: 12,
-    unit_of_measure: "",
-  },
-  {
-    id: randomId(), 
-    name: "Milk",
-    quantity: 1,
-    unit_of_measure: "Gallon",
-  },
-];
 
 const columns: GridColDef[] = [
   { field: 'name', headerName: 'Name', width: 180 },
@@ -285,7 +271,7 @@ const listViewColDef: GridListViewColDef = {
   renderCell: (params) => <ListViewCell {...params} />,
 };
 
-export default function ListViewEdit() {
+export default function ListViewEdit({rows}: {rows: GridRowsProp}) {
   const apiRef = useGridApiRef();
 
   return (

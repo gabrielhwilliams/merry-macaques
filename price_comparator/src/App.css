@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   width: 100vw;
   height: 100vh;
 }
@@ -14,26 +13,18 @@
   justify-content: space-between;
   align-items: center;
   background-color: white;
-  
   width: 100%;
   height: 100%;
   min-height: 500px;
 }
-
-
-
-
-
-
 
 .Top {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
   width: 96vw;
-  height: 100px
+  height: 100px;
 }
 
 .LocationContainer {
@@ -49,30 +40,23 @@
   align-items: center;
 }
 
-
-
-
-
 .Middle {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
   height: calc(100% - 200px);
   width: 96vw;
 }
 
-.Middle > div{
+.Middle > div {
   border: 1px black solid;
   border-radius: 5px;
   height: 100%;
-  
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
   width: 30vw;
 }
 
@@ -81,54 +65,84 @@
 
 .PricesList {
   margin: 0 3vw;
+  padding: 12px;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.GenerateButton {
+  border: 1px solid #d4d4d8;
+  border-radius: 8px;
+  background-color: #fafafa;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.GenerateButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.CheapestPreview {
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+  text-align: left;
+  padding: 0 8px;
+}
+
+.PreviewEmpty {
+  opacity: 0.7;
+}
+
+.StoreGroup h4 {
+  margin-bottom: 8px;
+}
+
+.StoreGroup ul {
+  margin-top: 0;
+  padding-left: 18px;
+}
+
+.MoreButton {
+  margin-top: auto;
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: #fff;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.MoreButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .RecipeList {
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .Bottom {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
   width: 96vw;
-  height: 100px
+  height: 100px;
 }
 
 .Chat {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
   width: 100%;
 }
-
-
-
-
-
-
-
 
 .HomeFab {
   position: fixed;
   right: 16px;
   bottom: 16px;
   z-index: 50;
-
   display: flex;
   gap: 10px;
 }
@@ -137,7 +151,6 @@
   border: 1px solid #e5e7eb;
   background: #111827;
   color: #ffffff;
-
   padding: 10px 14px;
   border-radius: 14px;
   font-weight: 700;

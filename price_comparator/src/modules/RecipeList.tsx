@@ -10,16 +10,19 @@ import type{
 } from '@mui/x-data-grid-pro';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
+import Newspaper from '@mui/icons-material/Newspaper';
 import Typography from '@mui/material/Typography';
-import Login from '@mui/icons-material/Login';
+import PostAdd from '@mui/icons-material/PostAdd';
 import IconButton from '@mui/material/IconButton';
 import {
   randomId,
 } from '@mui/x-data-grid-generator';
+import { useShopping } from '../context/ShoppingContext';
 
 var rows: GridRowsProp = [
   {
     id: randomId(),
+    color: "Gold",
     name: "Dijon Chicken",
     description: "Chicken breasts coated in a creamy Dijon mustard sauce, served with roasted broccoli.",
     ingredients: [
@@ -59,13 +62,22 @@ const columns: GridColDef[] = [
 
 function AddIngredients(props: Pick<GridRowParams, 'row'>) {
   const { row } = props;
+  const { setUsedColors } = useShopping();
+  const { setRows } = useShopping();
 
   return (
     <IconButton
+      sx={{ width: 32, height: 32}}
       aria-label="Add Ingredients to Shopping List"
-      // onClick={() => addIngredientsFromRecipe(row.ingredients)}
+      onClick={() => {
+        row.ingredients.forEach((ingredient: any) => {
+          setRows(prevRows => [...prevRows, { id: randomId(), name: ingredient.name, quantity: ingredient.quantity, unit_of_measure: ingredient.unit_of_measure, color: row.color }]);
+        })
+        setUsedColors(prevColors => [...prevColors, row.color]);
+        console.log("Added ingredients to shopping list:", row.ingredients);
+      }}
     >
-      <Login sx={{ width: 32, height: 32, backgroundColor: row.avatar, transform: 'scaleX(-1)' }} />
+      <PostAdd />
     </IconButton>
   );
 }
@@ -84,7 +96,10 @@ function ListViewCell(props: GridRenderCellParams) {
       }}
     >
       <Stack direction="column" sx={{ gap: 0.5 }}>
-        <Avatar sx={{ width: 32, height: 32, backgroundColor: row.avatar}} />
+        <Avatar sx={{ width: 32, height: 32, backgroundColor: row.color}}>
+          <Newspaper />
+        </Avatar>
+        <br />
         <AddIngredients {...props} />
       </Stack>
       <Stack sx={{ flexGrow: 1 }}>

@@ -10,8 +10,6 @@ import type{
   GridListViewColDef,
   GridColDef,
   GridRowParams,
-  GridRowsProp,
-  GridApiPro,
 } from '@mui/x-data-grid-pro';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -27,10 +25,10 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
 import AddIcon from '@mui/icons-material/Add';
+import Receipt from '@mui/icons-material/Receipt';
 import {
   randomId,
 } from '@mui/x-data-grid-generator';
-import type { Ingredient } from '../schemas/ingredients.type';
 
 
 import { useShopping } from '../context/ShoppingContext';
@@ -60,7 +58,7 @@ function EditAction(props: Pick<GridRowParams, 'row'>) {
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setRows(prevRows => prevRows.map(r => r.id === row.id ? { ...r, name, quantity, unit_of_measure } : r));
+    setRows(prevRows => prevRows.map(r => r.id === row.id ? { ...r, name, quantity, unit_of_measure, color: "grey" } : r));
     handleClose();
   };
 
@@ -131,12 +129,6 @@ function EditAction(props: Pick<GridRowParams, 'row'>) {
     </React.Fragment>
   );
 }
-
-function addIngredientsFromRecipe(ingredients: [{ id: string, name: string, quantity: number, unit_of_measure: string }]) {
-  ingredients.forEach((ingredient) => {
-    rows.push(ingredient);
-  })
-}
         
 function AddAction() {
   const { setRows } = useShopping();
@@ -158,7 +150,7 @@ function AddAction() {
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setRows(prevRows => [...prevRows, { id: randomId(), name, quantity, unit_of_measure }]);
+    setRows(prevRows => [...prevRows, { id: randomId(), name, quantity, unit_of_measure, color: "grey" }]);
     handleClose();
   };
 
@@ -258,7 +250,9 @@ function ListViewCell(props: GridRenderCellParams) {
         gap: 2,
       }}
     >
-      <Avatar sx={{ width: 32, height: 32, backgroundColor: row.avatar }} />
+      <Avatar sx={{ width: 32, height: 32, backgroundColor: row.color }}>
+        <Receipt />
+      </Avatar>
       <Stack sx={{ flexGrow: 1 }}>
         <Typography variant="body2" fontWeight={500}>
           {row.name}

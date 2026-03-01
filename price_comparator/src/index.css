@@ -11,6 +11,9 @@
   --color-primary: #1f6b3a;
   --color-primary-hover: #16552d;
   --color-accent: #e6f6ec;
+  --color-selection: #dff2e6;
+  --color-selection-hover: #cde8d8;
+  --color-gemini-badge: #000000;
   --color-shadow: rgba(9, 41, 23, 0.1);
   --color-button-text: #ffffff;
 
@@ -28,6 +31,9 @@
   --color-primary: #3fa866;
   --color-primary-hover: #58be7d;
   --color-accent: #234332;
+  --color-selection: #2a4f3b;
+  --color-selection-hover: #35634a;
+  --color-gemini-badge: #000000;
   --color-shadow: rgba(0, 0, 0, 0.35);
   --color-button-text: #000000;
 

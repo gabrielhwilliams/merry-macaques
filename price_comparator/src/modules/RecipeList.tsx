@@ -162,6 +162,12 @@ export default function ListViewEdit() {
               '& .MuiDataGrid-row:hover': {
                 backgroundColor: 'var(--color-accent)',
               },
+              '& .MuiDataGrid-row.Mui-selected': {
+                backgroundColor: 'var(--color-selection)',
+              },
+              '& .MuiDataGrid-row.Mui-selected:hover': {
+                backgroundColor: 'var(--color-selection-hover)',
+              },
               '& .MuiDataGrid-virtualScroller': {
                 backgroundColor: 'var(--color-surface)',
               },

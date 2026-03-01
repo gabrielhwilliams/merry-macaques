@@ -23,7 +23,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
-import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import {
   randomId,
@@ -281,9 +280,6 @@ export default function ListViewEdit() {
         height: 400,
       }}
     >
-        <IconButton aria-label="Edit" onClick={AddAction()}>
-            <AddIcon />
-        </IconButton>
         <DataGridPro
             rows={rows}
             columns={columns}

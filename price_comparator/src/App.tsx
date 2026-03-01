@@ -6,6 +6,7 @@ import './App.css'
 import Location from './modules/Location'
 import ShoppingList from './modules/ShoppingList'
 import Chat from './modules/Chat'
+import RecipeList from './modules/RecipeList'
 
 import ResultsPage from './ResultsPage'
 import sampleData from './sample.json'
@@ -170,7 +171,7 @@ function App() {
             <ShoppingList />
           </div>
 
-          <div className="RescipeList">
+          <div className="PricesList">
 
             <button
               className="GenerateButton"
@@ -209,7 +210,9 @@ function App() {
 
           </div>
 
-          <div className="PricesList"></div>
+          <div className="RecipeList">
+            <RecipeList />
+          </div>
         </div>
 
         <div className="Bottom">

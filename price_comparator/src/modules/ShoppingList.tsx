@@ -132,6 +132,12 @@ function EditAction(props: Pick<GridRowParams, 'row'>) {
   );
 }
 
+function addIngredientsFromRecipe(ingredients: [{ id: string, name: string, quantity: number, unit_of_measure: string }]) {
+  ingredients.forEach((ingredient) => {
+    rows.push(ingredient);
+  })
+}
+        
 function AddAction() {
   const { setRows } = useShopping();
   const [editing, setEditing] = React.useState(false);

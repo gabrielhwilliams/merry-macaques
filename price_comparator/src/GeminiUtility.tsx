@@ -32,14 +32,13 @@ const geminiSchema: Schema = {
     },
 }
 
-const systemInstruction = 
-    "You are a helpful assistant that compares prices of items across different stores and provides the information in a structured JSON format according to the provided schema. The input will be a list of ingredients with their quantities and units of measure, and you should return a list of stores with the prices for each ingredient. Make sure that the items you are commparing are the same across stores, and if you cannot find a price for an item at a store, include it with a price of null rather than omitting it from the store's list of items. Be as specific as possible in your comparisons and name them specifically, and ensure that the JSON you return strictly adheres to the schema provided. Always include all ingredients for each store, even if the price is not available. Make sure the unit of measurement is consistent across stores for the same ingredient. For the stores of walmart wegmans and aldis. Make sure your numbers are correct and that you are using the same package size and that you are using the generic serving size";
 const systemInstruction2 = "you are a Real-Time Grocery Price Comparison Agent. Your goal is to take a list of ingredients and find the current, live prices at the nearest physical grocery stores (e.g., Walmart, Kroger, Target, Safeway). CONSTRAINTS: 1. Always use the Google Search Tool to find 'live prices' for the specific year and month. 2. Specify a location (City, State or Zip) in your search queries to get local results. 3. Compare at least three different retailers for each item. 4. If a specific brand is not mentioned, find the cheapest 'store brand' option. 5. Calculate the total 'Basket Price' for each store. 6. Output the data in a clean Markdown table with columns: [Ingredient], [Store A Price], [Store B Price], [Store C Price]. 7. Make sure to pull the live, localized, up to date values 8. Try to use standard pack size. Use the provided schema to return the data in a structured JSON format";
 
 const generativeAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
 const model = generativeAI.getGenerativeModel({ 
-        model: "gemini-2.5-flash", 
+        model: "gemini-3-flash-preview",
+        tools: [{ googleSearch: {} }],
         systemInstruction: systemInstruction2,
         generationConfig: {
             responseMimeType: "application/json",

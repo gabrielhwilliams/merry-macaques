@@ -11,29 +11,14 @@ import ResultsPage from './ResultsPage'
 import sampleData from './sample.json'
 import { comparePrices } from './GeminiUtility'
 import type{ GridRowsProp } from '@mui/x-data-grid-pro'
-import { randomId } from '@mui/x-data-grid-generator'
 import type { Ingredient } from './schemas/ingredients.type'
 import type { Stores } from './schemas/stores.type'
+import { useShopping } from './context/ShoppingContext'
 
 function App() {
   const [showResults, setShowResults] = useState(false)
   const [comparisonData, setComparisonData] = useState<Stores | null>(null)
-  
-  const rows: GridRowsProp = [
-  {
-    id: randomId(),
-    name: "Eggs",
-    quantity: 11,
-    unit_of_measure: "",
-  },
-  {
-    id: randomId(), 
-    name: "Milk",
-    quantity: 0,
-    unit_of_measure: "Gallon",
-  },
-];
-
+  const { rows } = useShopping();
 
   // share button
   const handleShare = async () => {
@@ -182,7 +167,7 @@ function App() {
         </div>
         <div className="Middle">
           <div className="ShoppingList">
-            <ShoppingList rows={rows} />
+            <ShoppingList />
           </div>
 
           <div className="RescipeList">

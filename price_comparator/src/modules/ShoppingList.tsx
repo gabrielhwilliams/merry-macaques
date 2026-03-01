@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import {
   DataGridPro,
-  useGridApiContext,
   useGridApiRef,
 } from '@mui/x-data-grid-pro';
 import type{
@@ -31,21 +30,10 @@ import AddIcon from '@mui/icons-material/Add';
 import {
   randomId,
 } from '@mui/x-data-grid-generator';
+import type { Ingredient } from '../schemas/ingredients.type';
 
-const rows: GridRowsProp = [
-  {
-    id: randomId(),
-    name: "Eggs",
-    quantity: 12,
-    unit_of_measure: "",
-  },
-  {
-    id: randomId(), 
-    name: "Milk",
-    quantity: 1,
-    unit_of_measure: "Gallon",
-  },
-];
+
+import { useShopping } from '../context/ShoppingContext';
 
 const columns: GridColDef[] = [
   { field: 'name', headerName: 'Name', width: 180 },
@@ -55,11 +43,11 @@ const columns: GridColDef[] = [
 
 function EditAction(props: Pick<GridRowParams, 'row'>) {
   const { row } = props;
+  const { setRows } = useShopping();
   const [editing, setEditing] = React.useState(false);
   const [name, setName] = React.useState(row.name);
   const [quantity, setQuantity] = React.useState(row.quantity);
   const [unit_of_measure, setUnitOfMeasure] = React.useState(row.unit_of_measure);
-  const apiRef = useGridApiContext();
 
   const handleEdit = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -72,7 +60,7 @@ function EditAction(props: Pick<GridRowParams, 'row'>) {
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    apiRef.current.updateRows([{ id: row.id, name, quantity, unit_of_measure }]);
+    setRows(prevRows => prevRows.map(r => r.id === row.id ? { ...r, name, quantity, unit_of_measure } : r));
     handleClose();
   };
 
@@ -149,8 +137,9 @@ function addIngredientsFromRecipe(ingredients: [{ id: string, name: string, quan
     rows.push(ingredient);
   })
 }
-
+        
 function AddAction() {
+  const { setRows } = useShopping();
   const [editing, setEditing] = React.useState(false);
   const [name, setName] = React.useState("");
   const [quantity, setQuantity] = React.useState(0);
@@ -169,7 +158,7 @@ function AddAction() {
 
   const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    apiRef.current?.updateRows([{ id: randomId(), name, quantity, unit_of_measure }]);
+    setRows(prevRows => [...prevRows, { id: randomId(), name, quantity, unit_of_measure }]);
     handleClose();
   };
 
@@ -245,12 +234,12 @@ function AddAction() {
 
 function DeleteAction(props: Pick<GridRowParams, 'row'>) {
   const { row } = props;
-  const apiRef = useGridApiContext();
+  const { setRows } = useShopping();
 
   return (
     <IconButton
       aria-label="Delete"
-      onClick={() => apiRef.current.updateRows([{ id: row.id, _action: 'delete' }])}
+      onClick={() => setRows(prevRows => prevRows.filter(r => r.id !== row.id))}
     >
       <DeleteIcon />
     </IconButton>
@@ -293,6 +282,7 @@ const listViewColDef: GridListViewColDef = {
 
 export default function ListViewEdit() {
   const apiRef = useGridApiRef();
+  const { rows } = useShopping();
 
   return (
     <Box
@@ -314,7 +304,7 @@ export default function ListViewEdit() {
             hideFooter={true}
             sx={{ backgroundColor: 'background.paper' }}
         />
-        <AddAction apiRef={apiRef} />
+        <AddAction />
     </Box>
   );
 }

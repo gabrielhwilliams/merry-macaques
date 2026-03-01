@@ -12,7 +12,7 @@ interface ShoppingContextType {
 const ShoppingContext = createContext<ShoppingContextType | undefined>(undefined);
 
 export const ShoppingProvider = ({ children }: { children: ReactNode }) => {
-  const [usedColors, setUsedColors] = useState<string[]>([
+  const [_usedColors, setUsedColors] = useState<string[]>([
     "grey",
   ])
   const [rows, setRows] = useState<GridRowsProp>([

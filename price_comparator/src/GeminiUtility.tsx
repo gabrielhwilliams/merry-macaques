@@ -131,7 +131,7 @@ const generativeAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY)
 
 const model = generativeAI.getGenerativeModel({ 
         model: "gemini-3-flash-preview",
-        tools: [{ googleSearchRetrieval: {} }],
+        tools: [{ google_search: {} }],
         systemInstruction: systemInstruction2,
         generationConfig: {
             temperature: 0.1,

@@ -12,10 +12,12 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: white;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   width: 100%;
   height: 100%;
   min-height: 500px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .Top {
@@ -38,6 +40,39 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 18px;
+}
+
+.ShareActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-btn {
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.topbar-btn:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.topbar-btn--secondary {
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.topbar-btn--secondary:hover {
+  background: var(--color-accent);
+  border-color: var(--color-primary);
 }
 
 .Middle {
@@ -50,17 +85,17 @@
 }
 
 .Middle > div {
-  border: 1px black solid;
-  border-radius: 5px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   width: 30vw;
-}
-
-.ShoppingList {
+  background: var(--color-surface);
+  box-shadow: 0 6px 18px var(--color-shadow);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .PricesList {
@@ -69,14 +104,22 @@
   justify-content: flex-start;
   align-items: stretch;
   gap: 12px;
+  background: var(--color-surface-muted);
 }
 
 .GenerateButton {
-  border: 1px solid #d4d4d8;
+  border: 1px solid var(--color-primary);
   border-radius: 8px;
-  background-color: #fafafa;
+  background-color: var(--color-primary);
+  color: #ffffff;
   padding: 10px;
   cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.GenerateButton:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
 .GenerateButton:disabled {
@@ -92,8 +135,13 @@
   padding: 0 8px;
 }
 
+.CheapestPreview h3,
+.CheapestPreview h4 {
+  color: var(--color-primary);
+}
+
 .PreviewEmpty {
-  opacity: 0.7;
+  color: var(--color-text-muted);
 }
 
 .StoreGroup h4 {
@@ -107,20 +155,22 @@
 
 .MoreButton {
   margin-top: auto;
-  border: 1px solid #2563eb;
+  border: 1px solid var(--color-primary);
   border-radius: 8px;
-  background-color: #2563eb;
+  background-color: var(--color-primary);
   color: #fff;
   padding: 10px 12px;
   cursor: pointer;
 }
 
+.MoreButton:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
 .MoreButton:disabled {
   cursor: not-allowed;
   opacity: 0.6;
-}
-
-.RecipeList {
 }
 
 .Bottom {
@@ -138,26 +188,16 @@
   width: 100%;
 }
 
-.HomeFab {
-  position: fixed;
-  right: 16px;
-  bottom: 16px;
-  z-index: 50;
-  display: flex;
-  gap: 10px;
-}
+@media (max-width: 1000px) {
+  .Share {
+    gap: 10px;
+  }
 
-.HomeFabBtn {
-  border: 1px solid #e5e7eb;
-  background: #111827;
-  color: #ffffff;
-  padding: 10px 14px;
-  border-radius: 14px;
-  font-weight: 700;
-  cursor: pointer;
-}
+  .ShareActions {
+    gap: 8px;
+  }
 
-.HomeFabBtn--ghost {
-  background: #ffffff;
-  color: #111827;
+  .topbar-btn {
+    padding: 7px 10px;
+  }
 }

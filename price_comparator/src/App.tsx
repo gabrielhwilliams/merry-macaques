@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 
 // Modules
@@ -10,11 +10,12 @@ import TopBarSection from './modules/TopBarSection'
 import PriceComparisonPanel, { type PriceStore } from './modules/PriceComparisonPanel'
 
 import ResultsPage from './ResultsPage'
-import sampleData from './sample.json'
 import { comparePrices } from './GeminiUtility'
 import type { Ingredient } from './schemas/ingredients.type'
 import type { Stores } from './schemas/stores.type'
 import { useShopping } from './context/ShoppingContext'
+
+type ThemeMode = 'light' | 'dark'
 
 type ShoppingRow = {
   name?: string
@@ -22,24 +23,25 @@ type ShoppingRow = {
   unit_of_measure?: string
 }
 
-type SampleItem = {
-  ingredient?: string
-  ingredientId?: string
-  unit_of_measure?: string | null
-  quantity?: number | null
-  price?: number | null
-}
-
-type SampleStore = {
-  name: string
-  items: SampleItem[]
-}
-
 function App() {
   const [showResults, setShowResults] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
   const [comparisonData, setComparisonData] = useState<Stores | null>(null)
+  const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
+    const storedTheme = localStorage.getItem('themeMode')
+    return storedTheme === 'dark' ? 'dark' : 'light'
+  })
+
   const { rows } = useShopping()
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', themeMode)
+    localStorage.setItem('themeMode', themeMode)
+  }, [themeMode])
+
+  const toggleTheme = () => {
+    setThemeMode((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))
+  }
 
   const handleShare = async () => {
     const shareData = {
@@ -79,22 +81,6 @@ function App() {
     return comparisonData.stores as unknown as PriceStore[]
   }, [comparisonData])
 
-  const fallbackResultsData = useMemo<Stores>(() => {
-    const rawStores = (sampleData as { stores?: SampleStore[] }).stores ?? []
-
-    return {
-      stores: rawStores.map((store) => ({
-        name: store.name,
-        items: (store.items ?? []).map((item) => ({
-          ingredientId: String(item.ingredientId ?? item.ingredient ?? '').trim(),
-          unit_of_measure: String(item.unit_of_measure ?? ''),
-          quantity: Number(item.quantity ?? 0),
-          price: item.price == null ? null : Number(item.price)
-        }))
-      }))
-    } as Stores
-  }, [])
-
   const handleGenerate = async () => {
     if (ingredientPayload.length === 0) {
       alert('Please add at least one item with quantity before generating a comparison.')
@@ -121,15 +107,18 @@ function App() {
   }
 
   const handleMore = () => {
+    if (!comparisonData?.stores) return
     setShowResults(true)
   }
 
-  if (showResults) {
+  if (showResults && comparisonData) {
     return (
       <ResultsPage
-        data={comparisonData ?? fallbackResultsData}
+        data={comparisonData}
         onBack={() => setShowResults(false)}
         githubUrl="https://github.com/<your-user-or-org>/<your-repo>"
+        themeMode={themeMode}
+        onToggleTheme={toggleTheme}
       />
     )
   }
@@ -137,7 +126,7 @@ function App() {
   return (
     <>
       <div className="Home">
-        <TopBarSection onShare={handleShare}>
+        <TopBarSection onShare={handleShare} onToggleTheme={toggleTheme} themeMode={themeMode}>
           <Location />
         </TopBarSection>
 
@@ -151,7 +140,7 @@ function App() {
             onGenerate={handleGenerate}
             onMore={handleMore}
             isGenerating={isGenerating}
-            disableMore={false}
+            disableMore={!comparisonData?.stores}
           />
 
           <div className="RecipeList">

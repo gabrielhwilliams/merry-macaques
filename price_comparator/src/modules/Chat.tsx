@@ -1,7 +1,7 @@
 import '../index.css'
 import '../modulesCSS/Chat.css'
 import './RecipeGemini'
-import { Box, TextField, Stack, Typography, Avatar } from '@mui/material';
+import { Box, TextField, Stack, Typography } from '@mui/material';
 
 import { generateRecipes } from './RecipeGemini';
 import { useState } from "react";
@@ -11,6 +11,29 @@ import AddIngredients from './RecipeList';
 export default function Chat() {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const promptFieldSx = {
+    width: '100%',
+    '& .MuiOutlinedInput-root': {
+      color: 'var(--color-text)',
+      backgroundColor: 'var(--color-surface)',
+      '& fieldset': {
+        borderColor: 'var(--color-border)',
+      },
+      '&:hover fieldset': {
+        borderColor: 'var(--color-primary)',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'var(--color-primary)',
+      },
+    },
+    '& .MuiInputLabel-root': {
+      color: 'var(--color-text-muted)',
+    },
+    '& .MuiInputLabel-root.Mui-focused': {
+      color: 'var(--color-primary)',
+    },
+  };
 
   const handleGenerate = async () => {
       setLoading(true);
@@ -35,7 +58,7 @@ export default function Chat() {
           autoComplete="off"
         >
           <TextField id="userPrompt" label="Ask Gemini for Recipe Suggestions" variant="outlined" 
-          sx={{ width: '100%' }} />
+          sx={promptFieldSx} />
         </Box>
       </div>
       <div className='ChatEnter'>
@@ -46,7 +69,7 @@ export default function Chat() {
             </Typography>
             <span style={{ width: 20 }} /> {/* Spacer */}
             <img
-              src="../../public/gemini-logo-white.png"
+              src="/gemini-logo-white.png"
               alt="Gemini"
               loading="lazy"
               height= "72px"

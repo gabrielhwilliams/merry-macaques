@@ -15,6 +15,7 @@ import type{ GridRowsProp } from '@mui/x-data-grid-pro'
 import type { Ingredient } from './schemas/ingredients.type'
 import type { Stores } from './schemas/stores.type'
 import { useShopping } from './context/ShoppingContext'
+import { Stack, Typography } from '@mui/material'
 
 function App() {
   const [showResults, setShowResults] = useState(false)
@@ -157,6 +158,14 @@ function App() {
 
           <div className="Share">
             <button onClick={handleShare}>Share</button>
+            <div style={{ width: "40px" }} /> {/* Spacer */}
+            <img
+              src="../../public/trimmed-logo.png"
+              alt="CartSmart"
+              loading="lazy"
+              height= "80px"
+              width= "137px"
+            />
           </div>
         </div>
         <div className="Middle">
@@ -167,7 +176,19 @@ function App() {
           <div className="PricesList">
 
             <button className="GenerateButton" onClick={handleGenerate} >
-              Generate Price Comparison
+              <Stack direction="row" sx={{ my: 0, width: 1, alignItems:"center", justifyContent:"center" }}>
+                <img
+                  src="../../public/gemini-star.png"
+                  alt="Gemini"
+                  loading="lazy"
+                  height= "20px"
+                  width= "20px"
+                />
+                <span style={{ width: 10 }} /> {/* Spacer */}
+                <Typography variant="h6" fontWeight={500}>
+                  Generate Price Comparison
+                </Typography>
+              </Stack>
             </button>
 
             <div className="CheapestPreview">
